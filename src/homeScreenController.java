@@ -104,16 +104,16 @@ public class homeScreenController {
     public void initialize() {
     	SmartHomeController controller = new SmartHomeController();
     	
-    	iconColumn.setCellValueFactory(new PropertyValueFactory<>("icon"));
+    	iconColumn.setCellValueFactory(new PropertyValueFactory<>("deviceType"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     	
     	displayDevices = FXCollections.observableArrayList();
-    	displayDevices.add(new Device("()", "light", "Bedroom Light 1", "On"));
-    	displayDevices.add(new Device("X", "fan", "Bedroom Fan 1", "Off"));
-    	displayDevices.add(new Device("[]", "lock", "Bedroom Lock 1", "Off"));
-    	displayDevices.add(new Device("O", "thermostat", "Bedroom Thermostat 1", "Off"));
-    	displayDevices.add(new Device("B", "smokeAlarm", "Bedroom Smoke Alarm 1", "Off"));
+    	displayDevices.add(new Device("light", "Bedroom Light 1", "On"));
+    	displayDevices.add(new Device("fan", "Bedroom Fan 1", "Off"));
+    	displayDevices.add(new Device("lock", "Bedroom Lock 1", "Off"));
+    	displayDevices.add(new Device("thermostat", "Bedroom Thermostat 1", "Off"));
+    	displayDevices.add(new Device("smokeAlarm", "Bedroom Smoke Alarm 1", "Off"));
     	
     	//displayDevices = SmartHomeController.getDevices();
     	

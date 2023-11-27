@@ -10,9 +10,9 @@ public class SmartHomeController {
 		return devices;
 	}
 
-	public void addDevices(String _icon, String _deviceType, String _deviceName, String _status) {
-		devices.add(new Device(_icon, _deviceType, _deviceName, _status));
-	}
+	//public void addDevices(String _icon, String _deviceType, String _deviceName, String _status) {
+	//	devices.add(new Device(_icon, _deviceType, _deviceName, _status));
+	//}
 	
 	
 	

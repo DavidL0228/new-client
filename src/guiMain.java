@@ -20,5 +20,4 @@ public class guiMain extends Application {
 		stage.show(); // display the stage	
 	}
 
-
 }
