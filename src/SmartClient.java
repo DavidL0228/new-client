@@ -27,20 +27,20 @@ public class SmartClient extends AbstractClient {
 			// display devices on network
 			ArrayList<Device> devices = new ArrayList<Device>();
 			int index = 0;
-			/*for( String i : message.getDeviceNames() ) {
+			for( String i : message.getDeviceNames() ) {
 				Device d = new Device();
 				d.setDeviceName(i);
 				d.setDeviceType(message.getDeviceTypes().get(index) );
 				d.setStatus(message.getDeviceStatuses().get(index));
 				devices.add(d);
-			}*/
+			}
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
 
-				//controller.displayAllDevices( devices );
+				controller.displayAllDevices( devices );
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
-				//controller.displayConnectedDevices( devices );
+				controller.displayConnectedDevices( devices );
 			}
 
 		}
@@ -52,37 +52,41 @@ public class SmartClient extends AbstractClient {
 				int fanSpeed = message.getSecondData();
 				int fanTemp = message.getThirdData();
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayFanStatus( message.getFirstData() );
+				controller.displayFanStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
 				String isLightOn = message.getFirstData() == 1 ? "YES": "NO";
-				int intensity = message.getFirstData();
+				int intensity = message.getSecondData();
+				int timeout = message.getThirdData();
+				int timeoutMins = timeout / 60;
+				int timeoutHours = timeoutMins / 60;
+				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayLightStatus( message.getFirstData() );
+				controller.displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
 				int duration = message.getSecondData();
-				//controller.displayLockStatus( message.getFirstData() );
+				controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_SMOKE_ALARM_STATUS) ) {
 				int percentage = message.getFirstData();
 				String isSoundFunctional = message.getSecondData() == 1 ? "YES": "NO";
 				String isDetectorFunctional = message.getThirdData() == 1 ? "YES": "NO";
-				//int smokeAmount = message.getFourthData();
-				//String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
+				int smokeAmount = message.getFourthData();
+				String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
 
-				//controller.displayLockStatus( message.getFirstData() );
+				controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_THERMOSTAT_STATUS) ) {
 				String isThermoOn = message.getFirstData() == 1 ? "YES": "NO";
 				int min = message.getSecondData();
 				int max = message.getThirdData();
-				//int now = message.getFourthData();
-				//String isCirc = message.getFifthData() == 1 ? "YES": "NO";
-				//String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
+				int now = message.getFourthData();
+				String isCirc = message.getFifthData() == 1 ? "YES": "NO";
+				String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayThermostatStatus( message.getFirstData() );
+				controller.displayThermostatStatus( message.getFirstData() );
 			}
 			else if ( function.equals("") ) {
 				System.out.printf( "Success! %n" );
@@ -97,7 +101,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username,
 				password,
 				"",
-				-1,
+				"",
 				Message.SEND_LOGIN_INFO,
 				-1);
 		try 				  {	super.sendToServer(msg); }
@@ -105,68 +109,68 @@ public class SmartClient extends AbstractClient {
 		isAuthenticated = true;
 	}
 
-	public void requestThermostatStatus( int deviceID ) {
+	public void requestThermostatStatus( String deviceName ) {
 		if( !isAuthenticated ) {return;}
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.REQUEST_THERMOSTAT_STATUS,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestSmokeAlarmStatus( int deviceID ) {
+	public void requestSmokeAlarmStatus( String deviceName ) {
 		if( !isAuthenticated ) {return;}
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_SMOKE_ALARM,
-				deviceID,
+				deviceName,
 				Message.REQUEST_SMOKE_ALARM_STATUS,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestFanStatus( int deviceID ) {
+	public void requestFanStatus( String deviceName ) {
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.REQUEST_FAN_STATUS,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestLightStatus( int deviceID ) {
+	public void requestLightStatus( String deviceName ) {
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_LIGHT,
-				deviceID,
+				deviceName,
 				Message.REQUEST_LIGHT_STATUS,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestLockStatus( int deviceID ) {
+	public void requestLockStatus( String deviceName,) {
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_LOCK,
-				deviceID,
+				deviceName,
 				Message.REQUEST_LOCK_STATUS,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void sendFanSchedule(int deviceID, int fanSpeed, Schedule schedule) {
+	public void sendFanSchedule(String deviceName, int fanSpeed, Schedule schedule) {
 		MessageWithSchedule msg = new MessageWithSchedule(this.username,
 				this.password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.SEND_FAN_SCHEDULE,
 				fanSpeed, -1, -1,
 				schedule);
@@ -174,11 +178,11 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();		}
 	}
 
-	public void sendLightByMotionTime(int deviceID, int seconds, int intensity) {
+	public void sendLightByMotionTime(String deviceName, int seconds, int intensity) {
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.SEND_FAN_SCHEDULE,
 				seconds, intensity);
 		try					  {	super.sendToServer(msg);	}
@@ -192,7 +196,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username,
 				password,
 				"",
-				-1,
+				"",
 				Message.SEND_REGISTER_INFO,
 				-1);
 		try 				  {	super.sendToServer(msg); }
@@ -207,78 +211,78 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username,
 				password,
 				"",
-				-1,
+				"",
 				Message.REQUEST_LOGOUT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void setLockAfterTime( int deviceID, int timeToWait ) {
+	public void setLockAfterTime( String deviceName, int timeToWait ) {
 
 		Message msg = new Message(username,
 				password,
 				Message.SMART_LOCK,
-				deviceID,
+				deviceName,
 				Message.SET_LOCK_AFTER_TIME,
 				timeToWait);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void lock( int deviceID ) {
+	public void lock( String deviceName ) {
 
 		Message msg = new Message(username,
 				password,
 				Message.SMART_LOCK,
-				deviceID,
+				deviceName,
 				Message.LOCK,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void unlock( int deviceID ) {
+	public void unlock( String deviceName ) {
 
 		Message msg = new Message(username,
 				password,
 				Message.SMART_LOCK,
-				deviceID,
+				deviceName,
 				Message.UNLOCK,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void addNewUser( int deviceID ) {
+	public void addNewUser( String deviceName) {
 
 		Message msg = new Message(username,
 				password,
 				"",
-				deviceID,
+				deviceName,
 				Message.ADD_NEW_USER,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void establishNewAdmin( int deviceID ) {
+	public void establishNewAdmin( String deviceName ) {
 
 		Message msg = new Message(username,
 				password,
 				"",
-				deviceID,
+				deviceName,
 				Message.ESTABLISH_ADMIN,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void adjustTemperatureWithSchedule(int deviceID, int temperature, Schedule schedule) {
+	public void adjustTemperatureWithSchedule(String deviceName, int temperature, Schedule schedule) {
 		MessageWithSchedule msg = new MessageWithSchedule(username,
 				password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.ADJUST_THERMO_TEMP_SCHEDULE,
 				temperature, -1, -1,
 				schedule);
@@ -286,142 +290,142 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void modifyTemperatureNow( int deviceID, int temperature) {
+	public void modifyTemperatureNow( String deviceName, int temperature) {
 		Message msg = new Message(username,
 				password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.MODIFY_THERMO_TEMP_NOW,
 				temperature);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void maintainTemperatureRange( int deviceID, int high, int low) {
+	public void maintainTemperatureRange(String deviceName, int high, int low) {
 		Message msg = new Message(username,
 				password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,,
 				Message.MODIFY_THERMO_TEMP_NOW,
 				high, low);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOnCirculation(int deviceID) {
+	public void turnOnCirculation(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.TURN_ON_CIRCULATION,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOffCirculation(int deviceID) {
+	public void turnOffCirculation(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.TURN_OFF_CIRCULATION,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOnThermostat(int deviceID) {
+	public void turnOnThermostat(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.TURN_ON_CIRCULATION,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOffThermostat(int deviceID) {
+	public void turnOffThermostat(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
-				deviceID,
+				deviceName,
 				Message.TURN_OFF_CIRCULATION,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestAlarmHistory(int deviceID) {
+	public void requestAlarmHistory(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_SMOKE_ALARM,
-				deviceID,
+				deviceName,
 				Message.REQUEST_ALARM_HISTORY,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOnLight(int deviceID) {
+	public void turnOnLight(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
-				deviceID,
+				deviceName,
 				Message.TURN_ON_LIGHT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOffLight(int deviceID) {
+	public void turnOffLight(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
-				deviceID,
+				deviceName,
 				Message.TURN_OFF_LIGHT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOnFan(int deviceID) {
+	public void turnOnFan(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.TURN_ON_FAN,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void turnOffFan(int deviceID) {
+	public void turnOffFan(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.TURN_OFF_FAN,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void adjustLightBrightness(int deviceID, int brightness) {
+	public void adjustLightBrightness(String deviceName, int brightness) {
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
-				deviceID,
+				deviceName,
 				Message.ADJUST_LIGHT_BRIGHTNESS,
 				brightness);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void adjustFanSpeed(int deviceID, int speed) {
+	public void adjustFanSpeed(String deviceName, int speed) {
 		Message msg = new Message(username, password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.ADJUST_FAN_SPEED,
 				speed);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void adjustFanTemperature(int deviceID, int temp) {
+	public void adjustFanTemperature(String deviceName, int temp) {
 		Message msg = new Message(username, password,
 				Message.SMART_FAN,
-				deviceID,
+				deviceName,
 				Message.ADJUST_FAN_TEMP,
 				temp);
 		try 				  {	super.sendToServer(msg); }
@@ -431,7 +435,7 @@ public class SmartClient extends AbstractClient {
 	public void requestNetworkDevices() {
 		Message msg = new Message(username, password,
 				"",
-				-1,
+				"",
 				Message.FIND_NETWORK_DEVICES,
 				-1);
 		try 				  {	super.sendToServer(msg); }
@@ -441,7 +445,7 @@ public class SmartClient extends AbstractClient {
 	public void requestConnectedDevices() {
 		Message msg = new Message(username, password,
 				"",
-				-1,
+				"",
 				Message.REQUEST_CONNECTED_DEVICES,
 				-1);
 		try 				  {	super.sendToServer(msg); }

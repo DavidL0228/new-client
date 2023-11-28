@@ -11,7 +11,7 @@ public class MessageWithSchedule extends Message {
 			String username, 
 			String password, 
 			String deviceType, 
-			int deviceID, 
+			String deviceName,
 			String whichFunction, 
 			int firstData,
 			int secondData,
@@ -19,7 +19,7 @@ public class MessageWithSchedule extends Message {
 			Schedule schedule) 
 	{
 		
-		super(username, password, deviceType, deviceID, whichFunction, firstData, secondData, thirdData);
+		super(username, password, deviceType, deviceName, whichFunction, firstData, secondData, thirdData);
 		this.schedule = schedule;
 		
 	}

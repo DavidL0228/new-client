@@ -2,18 +2,19 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 	/**
-	 * 
+	 *
 	 */
-	
-	
+
+
 	private static final long serialVersionUID = 1L;
-	
+
 	final static public String SMART_LIGHT 			= "SMART_LIGHT";
 	final static public String SMART_THERMOSTAT 	= "SMART_THERMOSTAT";
 	final static public String SMART_LOCK 			= "SMART_LOCK";
 	final static public String SMART_FAN 			= "SMART_FAN";
 	final static public String SMART_SMOKE_ALARM 	= "SMART_SMOKE_ALARM";
-	
+
+	final static public String REQUEST_CONNECTED_DEVICES = "REQUEST_CONNECTED_DEVICES";
 	final static public String NOTIFY_SMOKE_ALARM_USERS 	= "NOTIFY_SMOKE_ALARM_USERS";
 	final static public String REQUEST_THERMOSTAT_STATUS = "REQUEST_THERMOSTAT_STATUS";
 	final static public String REQUEST_SMOKE_ALARM_STATUS = "REQUEST_SMOKE_ALARM_STATUS";
@@ -64,58 +65,110 @@ public class Message implements Serializable {
 	//no objects
 	final static public String REQUEST_LOGOUT = "REQUEST_LOGOUT";
 	final static public String FIND_NETWORK_DEVICES = "FIND_NETWORK_DEVICES";
-	final static public String REQUEST_CONNECTED_DEVICES = "REQUEST_CONNECTED_DEVICES";
-	
+
 	private String username;
 	private String password;
 	private String deviceType;
-	private int deviceID;
+	private String deviceName;
 	private String whichFunction;
-	private int[] dataRequired;
-	
-	Message(String username, 
-			String password, 
-			String deviceType, 
-			int deviceID, 
-			String whichFunction, 
-			int firstData ) 
+	private int[] dataRequired = new int[6];
+
+	Message(String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
+			int firstData )
 	{
-	
+
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setDeviceType(deviceType);
-		this.setDeviceID(deviceID);
+		this.setDeviceName( deviceName );
 		this.setWhichFunction(whichFunction);
 		this.dataRequired[0] = firstData;
-		
+
 	}
-	Message(String username, 
-			String password, 
-			String deviceType, 
-			int deviceID, 
-			String whichFunction, 
+	private void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+
+	}
+	Message(String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
 			int firstData,
-			int secondData) 
+			int secondData)
 	{
-	
-		this(username, password, deviceType, deviceID, whichFunction, firstData);
+
+		this(username, password, deviceType, deviceName, whichFunction, firstData);
 		this.dataRequired[1] = secondData;
-		
+
 	}
-	Message(String username, 
-			String password, 
-			String deviceType, 
-			int deviceID, 
-			String whichFunction, 
+	Message(String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
 			int firstData,
 			int secondData,
-			int thirdData) 
+			int thirdData)
 	{
-	
-		this(username, password, deviceType, deviceID, whichFunction, firstData, secondData);
+
+		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData);
 		this.dataRequired[2] = thirdData;
-		
+
 	}
+	Message(String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
+			int firstData,
+			int secondData,
+			int thirdData,
+			int fourthData)
+	{
+
+		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData, fourthData);
+		this.dataRequired[3] = fourthData;
+
+	}Message(String username,
+			 String password,
+			 String deviceType,
+			 String deviceName,
+			 String whichFunction,
+			 int firstData,
+			 int secondData,
+			 int thirdData,
+			 int fourthData,
+			 int fifthData)
+	{
+
+		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData, thirdData, fourthData);
+		this.dataRequired[4] = fifthData;
+
+	}
+	Message(String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
+			int firstData,
+			int secondData,
+			int thirdData,
+			int fourthData,
+			int fifthData,
+			int sixthData)
+	{
+
+		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData, thirdData, fourthData, fifthData);
+		this.dataRequired[5] = sixthData;
+
+	}
+
+
 	public String getUsername() {
 		return username;
 	}
@@ -134,19 +187,13 @@ public class Message implements Serializable {
 	public void setDeviceType(String deviceType) {
 		this.deviceType = deviceType;
 	}
-	public int getDeviceID() {
-		return deviceID;
-	}
-	public void setDeviceID(int deviceID) {
-		this.deviceID = deviceID;
-	}
 	public String getWhichFunction() {
 		return whichFunction;
 	}
 	public void setWhichFunction(String whichFunction) {
 		this.whichFunction = whichFunction;
 	}
-	
+
 	public int getFirstData() {
 		return dataRequired[0];
 	}
@@ -165,5 +212,28 @@ public class Message implements Serializable {
 	public void setThirdData(int thirdData) {
 		this.dataRequired[2] = thirdData;
 	}
-	
+	public int getFourthData() {
+		return dataRequired[3];
+	}
+	public void setFourthData(int fourthData) {
+		this.dataRequired[3] = fourthData;
+	}
+	public int getFifthData() {
+		return dataRequired[4];
+	}
+	public void setFifthData(int fifthData) {
+		this.dataRequired[4] = fifthData;
+	}
+	public int getSixthData() {
+		return dataRequired[5];
+	}
+	public void setSixthData(int sixthData) {
+		this.dataRequired[5] = sixthData;
+	}
+	public String getDeviceName() {
+		return this.deviceName;
+	}
+	public void setNameOfDevice( String name ) {
+		this.deviceName = name;
+	}
 }
