@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class fanMenuController {
+public class fanMenuController extends SmartHomeController{
 
 	@FXML
     private Button addScheduleButton;

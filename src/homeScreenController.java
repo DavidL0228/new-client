@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class homeScreenController {
+public class homeScreenController extends SmartHomeController {
 
 	@FXML
     private Button addDeviceButton;
@@ -100,7 +101,11 @@ public class homeScreenController {
     }
     
     public ObservableList<Device> displayDevices;
-    
+
+	public void displayAllDevices(ArrayList devices){
+		displayDevices = (ObservableList<Device>) devices;
+	}
+
     public void initialize() {
     	SmartHomeController controller = new SmartHomeController();
     	
@@ -115,8 +120,8 @@ public class homeScreenController {
     	displayDevices.add(new Device("thermostat", "Bedroom Thermostat 1", "Off"));
     	displayDevices.add(new Device("smokeAlarm", "Bedroom Smoke Alarm 1", "Off"));
     	
-    	//displayDevices = SmartHomeController.getDevices();
-    	
+    	//displayAllDevices();
+
     	deviceTable.setItems(displayDevices);
     }
     

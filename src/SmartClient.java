@@ -37,10 +37,10 @@ public class SmartClient extends AbstractClient {
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
 
-				controller.displayAllDevices( devices );
+				//controller.displayAllDevices( devices );
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
-				controller.displayConnectedDevices( devices );
+				//controller.displayConnectedDevices( devices );
 			}
 
 		}
@@ -52,7 +52,7 @@ public class SmartClient extends AbstractClient {
 				int fanSpeed = message.getSecondData();
 				int fanTemp = message.getThirdData();
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				controller.displayFanStatus( message.getFirstData() );
+				//controller.displayFanStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
 				String isLightOn = message.getFirstData() == 1 ? "YES": "NO";
@@ -62,12 +62,12 @@ public class SmartClient extends AbstractClient {
 				int timeoutHours = timeoutMins / 60;
 				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				controller.displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
+				//controller.displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
 				int duration = message.getSecondData();
-				controller.displayLockStatus( message.getFirstData() );
+				//controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_SMOKE_ALARM_STATUS) ) {
 				int percentage = message.getFirstData();
@@ -76,7 +76,7 @@ public class SmartClient extends AbstractClient {
 				int smokeAmount = message.getFourthData();
 				String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
 
-				controller.displayLockStatus( message.getFirstData() );
+				//controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_THERMOSTAT_STATUS) ) {
 				String isThermoOn = message.getFirstData() == 1 ? "YES": "NO";
@@ -86,7 +86,7 @@ public class SmartClient extends AbstractClient {
 				String isCirc = message.getFifthData() == 1 ? "YES": "NO";
 				String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				controller.displayThermostatStatus( message.getFirstData() );
+				//controller.displayThermostatStatus( message.getFirstData() );
 			}
 			else if ( function.equals("") ) {
 				System.out.printf( "Success! %n" );
@@ -155,7 +155,7 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void requestLockStatus( String deviceName,) {
+	public void requestLockStatus( String deviceName) {
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_LOCK,
@@ -305,7 +305,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username,
 				password,
 				Message.SMART_THERMOSTAT,
-				deviceName,,
+				deviceName,
 				Message.MODIFY_THERMO_TEMP_NOW,
 				high, low);
 		try 				  {	super.sendToServer(msg); }

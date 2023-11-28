@@ -66,8 +66,12 @@ public class lightMenuController extends SmartHomeController {
     }
 
     @FXML
-    void gotoAddSchedule(MouseEvent event) {
-
+    void gotoAddSchedule(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("scheduleMenu.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     
     //checks the current state of the light, and on press changes to the other state
@@ -90,7 +94,7 @@ public class lightMenuController extends SmartHomeController {
     }
     
     //updates all the display elements of the UI to the data received from the server
-    public void displayLightStatus() {
+    public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
     	//sets the name
     	lightName.setText("Bedroom Light");
     	//sets the status
@@ -108,7 +112,7 @@ public class lightMenuController extends SmartHomeController {
     //called when screen is first shown
     public void initialize() {
     	//client.setController(this);
-    	displayLightStatus();	
+    	//displayLightStatus();
     }
     
 }
