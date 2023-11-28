@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class loginController {
+public class loginController extends SmartHomeController {
 
     @FXML
     private Button addUserButton;
@@ -27,8 +27,15 @@ public class loginController {
     @FXML
     void attemptLogin(MouseEvent event) throws IOException {
     	//put login check stuff here
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
-        //goes to main if succesful
+        client.sendLoginInfo(username, password);
+        client.sendRegisterInfo(username, password);
+
+
+
+        //goes to main if successful
         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     	Scene scene = new Scene(root);
@@ -44,5 +51,16 @@ public class loginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void initialize() {
+        client = new SmartClient("192.168.89.137",9100);
+        client.setController(this);
+       // try {
+       //     client.openConnection();
+        //} catch (IOException e) {
+        //    throw new RuntimeException(e);
+        //}
+    }
+
 
 }

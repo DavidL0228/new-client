@@ -36,8 +36,7 @@ public class SmartClient extends AbstractClient {
 			}
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
-
-				//controller.displayAllDevices( devices );
+				( (homeScreenController) controller ).displayAllDevices( devices );
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
 				//controller.displayConnectedDevices( devices );

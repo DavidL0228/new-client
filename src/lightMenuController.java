@@ -96,7 +96,7 @@ public class lightMenuController extends SmartHomeController {
     //updates all the display elements of the UI to the data received from the server
     public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
     	//sets the name
-    	lightName.setText("Bedroom Light");
+    	lightName.setText(getCurrentDeviceName());
     	//sets the status
     	status.setText("Off");
     	//sets the brightness
@@ -111,8 +111,9 @@ public class lightMenuController extends SmartHomeController {
     
     //called when screen is first shown
     public void initialize() {
-    	//client.setController(this);
-    	//displayLightStatus();
+        lightName.setText(getCurrentDeviceName());
+    	client.setController(this);
+    	client.requestLightStatus(getCurrentDeviceName());
     }
     
 }

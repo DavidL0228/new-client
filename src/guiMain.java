@@ -5,10 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class guiMain extends Application {
-	public static void main(String[] args) {
-		// create an object and call its start method
-		launch(args);
-	}
+
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -18,6 +15,11 @@ public class guiMain extends Application {
 		stage.setTitle("Smart Home GUI"); // displayed in window's title bar
 		stage.setScene(scene); // attach scene to stage
 		stage.show(); // display the stage	
+	}
+
+	public static void main(String[] args) {
+		// create an object and call its start method
+		launch(args);
 	}
 
 }

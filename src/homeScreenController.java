@@ -63,6 +63,7 @@ public class homeScreenController extends SmartHomeController {
     	
     	switch(deviceTable.getSelectionModel().getSelectedItem().getDeviceType()) {
     	case "light":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lightMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -70,6 +71,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.show();
     		break;
     	case "fan":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("fanMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -77,6 +79,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.show();
     		break;
     	case "lock":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lockMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -84,6 +87,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.show();
     		break;
     	case "smokeAlarm":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("smokeAlarmMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -91,6 +95,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.show();
     		break;
     	case "thermostat":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("thermostatMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -102,19 +107,19 @@ public class homeScreenController extends SmartHomeController {
     
     public ObservableList<Device> displayDevices;
 
-	public void displayAllDevices(ArrayList devices){
+	public void displayAllDevices(ArrayList<Device> devices){
 		displayDevices = (ObservableList<Device>) devices;
 	}
 
     public void initialize() {
     	SmartHomeController controller = new SmartHomeController();
-    	
+    	client.setController(this);
     	iconColumn.setCellValueFactory(new PropertyValueFactory<>("deviceType"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     	
     	displayDevices = FXCollections.observableArrayList();
-    	displayDevices.add(new Device("light", "Bedroom Light 1", "On"));
+    	displayDevices.add(new Device("light", "yeah baby", "On"));
     	displayDevices.add(new Device("fan", "Bedroom Fan 1", "Off"));
     	displayDevices.add(new Device("lock", "Bedroom Lock 1", "Off"));
     	displayDevices.add(new Device("thermostat", "Bedroom Thermostat 1", "Off"));
@@ -123,6 +128,7 @@ public class homeScreenController extends SmartHomeController {
     	//displayAllDevices();
 
     	deviceTable.setItems(displayDevices);
+		//client.requestNetworkDevices();
     }
     
 }

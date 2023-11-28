@@ -2,8 +2,18 @@ import javafx.collections.ObservableList;
 
 public class SmartHomeController {
 
-	SmartClient client;
-	
+	protected static SmartClient client;
+
+	private static String currentDeviceName;
+
+	public static String getCurrentDeviceName() {
+		return currentDeviceName;
+	}
+
+	public static void setCurrentDeviceName(String currentDeviceName) {
+		SmartHomeController.currentDeviceName = currentDeviceName;
+	}
+
 	//private static ObservableList<Device> devices;
 
 	//public static ObservableList<Device> getDevices() {
