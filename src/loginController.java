@@ -30,17 +30,29 @@ public class loginController extends SmartHomeController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        client.sendLoginInfo(username, password);
-        client.sendRegisterInfo(username, password);
-
+        client.sendLoginInfo(username, password, event);
 
 
         //goes to main if successful
+        /*
         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	Scene scene = new Scene(root);
-    	stage.setScene(scene);
-    	stage.show();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        */
+
+    }
+
+    void loginSuccess(MouseEvent event) throws IOException {
+
+         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+         Scene scene = new Scene(root);
+         stage.setScene(scene);
+         stage.show();
+
+
     }
 
     @FXML
@@ -55,11 +67,11 @@ public class loginController extends SmartHomeController {
     public void initialize() {
         client = new SmartClient("192.168.89.137",9100);
         client.setController(this);
-       // try {
-       //     client.openConnection();
-        //} catch (IOException e) {
-        //    throw new RuntimeException(e);
-        //}
+        try {
+            client.openConnection();
+        } catch (IOException e) {
+           throw new RuntimeException(e);
+        }
     }
 
 

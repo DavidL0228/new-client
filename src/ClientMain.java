@@ -1,10 +1,4 @@
 import java.io.IOException;
-import java.util.Scanner;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class ClientMain {//extends Application {
 
@@ -24,8 +18,8 @@ public class ClientMain {//extends Application {
 			client.openConnection();
 		} 
 		catch (IOException e) {	e.printStackTrace();	}
-		client.sendLoginInfo( "Said", "123" );
-		client.requestNetworkDevices();
+		//client.sendLoginInfo( "Said", "123", event);
+		//client.requestNetworkDevices();
 		while(true);
 	}
 

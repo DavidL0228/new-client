@@ -1,3 +1,5 @@
+import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -89,12 +91,16 @@ public class SmartClient extends AbstractClient {
 			}
 			else if ( function.equals("") ) {
 				System.out.printf( "Success! %n" );
+				if(controller instanceof loginController) {
+					try {( (loginController)controller ).loginSuccess(event);}
+					catch(IOException error) {}
+				}
 			}
 
 		}
 	}
-
-	public void sendLoginInfo(String username, String password) {
+	private MouseEvent event;
+	public void sendLoginInfo(String username, String password, MouseEvent event) {
 		this.username = username;
 		this.password = password;
 		Message msg = new Message(username,
@@ -105,6 +111,7 @@ public class SmartClient extends AbstractClient {
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
+		this.event = event;
 		isAuthenticated = true;
 	}
 
