@@ -46,7 +46,7 @@ public class SmartClient extends AbstractClient {
 				((homeScreenController)controller).setDisplayDevices(devices);
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
-				//controller.displayConnectedDevices( devices );
+				((homeScreenController)controller).setDisplayDevices( devices );
 			}
 
 		}
@@ -102,6 +102,9 @@ public class SmartClient extends AbstractClient {
 						( (loginController)controller ).setSuccess(1);
 					System.out.println("success set to 1 ");
 
+				}
+				if(controller instanceof addUserController) {
+					( (addUserController)controller ).setSuccess(1);
 				}
 			}
 			else if ( function.equals(Message.FUNCTION_FAILED) ) {

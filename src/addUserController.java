@@ -12,7 +12,8 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class addUserController extends SmartHomeController{
+public class addUserController extends SmartHomeController {
+
 
     @FXML
     private Button addUserButton;
@@ -51,8 +52,7 @@ public class addUserController extends SmartHomeController{
 
         }
 
-
-        //goes to main if successful
+        //goes to main if succesful
         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
