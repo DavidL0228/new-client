@@ -1,3 +1,4 @@
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.stage.Stage;
@@ -6,9 +7,11 @@ public class SmartClient extends AbstractClient {
 
 	String username;
 	String password;
-	SmartHomeController controller;
+	static SmartHomeController controller;
 	boolean isAuthenticated = false;
 	Stage stage;
+
+	MouseEvent event;
 
 	public SmartClient(String host, int port) {
 		super(host, port);
@@ -93,10 +96,10 @@ public class SmartClient extends AbstractClient {
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
-					try {
-						( (loginController)controller ).loginSuccess(stage);
-					}
-					catch(IOException e) {}
+
+						System.out.println("calling login succesfull ");
+						( (loginController)controller ).setSuccess(1);
+					System.out.println("success set to 1 ");
 
 				}
 			}
@@ -107,8 +110,8 @@ public class SmartClient extends AbstractClient {
 		}
 	}
 
-	public void sendLoginInfo(String username, String password, Stage stage) {
-		this.stage = stage;
+	public void sendLoginInfo(String username, String password) {
+		//this.stage = stage;
 		this.username = username;
 		this.password = password;
 		Message msg = new Message(username,
@@ -120,6 +123,7 @@ public class SmartClient extends AbstractClient {
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 		isAuthenticated = true;
+
 	}
 
 	public void requestThermostatStatus( String deviceName ) {

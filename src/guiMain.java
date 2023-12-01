@@ -14,7 +14,7 @@ public class guiMain extends Application {
 		Scene scene = new Scene(root); // attach scene graph to scene
 		stage.setTitle("Smart Home GUI"); // displayed in window's title bar
 		stage.setScene(scene); // attach scene to stage
-		stage.show(); // display the stage	
+		stage.show(); // display the stage
 	}
 
 	public static void main(String[] args) {

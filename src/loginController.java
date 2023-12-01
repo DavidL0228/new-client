@@ -24,6 +24,13 @@ public class loginController extends SmartHomeController {
     @FXML
     private TextField usernameField;
 
+
+    private int success = -1;
+
+    public void setSuccess(int _success){
+        success = _success;
+    }
+
     @FXML
     void attemptLogin(MouseEvent event) throws IOException {
     	//put login check stuff here
@@ -31,32 +38,33 @@ public class loginController extends SmartHomeController {
         String password = passwordField.getText();
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        client.sendLoginInfo(username, password, stage);
 
-        //loginSuccess(stage);
+        client.sendLoginInfo(username, password);
 
-        //goes to main if successful
-        /*
-        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        */
 
+        while(success < 0){
+            //loop
+            System.out.println("looping %n ");
+        }
+
+        System.out.println("loop done ");
+
+        loginSuccess(stage);
     }
 
     void loginSuccess(Stage stage) throws IOException {
+        System.out.println("login success");
 
         //sets the local username to the correct one, for use
         setUsername(usernameField.getText());
 
-         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-         Scene scene = new Scene(root);
-         stage.setScene(scene);
-         stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+        Scene scene = new Scene(root);
 
+        stage.setScene(scene);
+        stage.show();
 
+        System.out.println("test");
     }
 
     @FXML
@@ -71,7 +79,7 @@ public class loginController extends SmartHomeController {
 
     public void initialize() {
 
-        client = new SmartClient("10.0.0.186",9100);
+        client = new SmartClient("10.0.0.184",9100);
         client.setController(this);
         try {
             client.openConnection();

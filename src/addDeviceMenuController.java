@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class DeviceMenuController {
+public class addDeviceMenuController {
 
     @FXML
     private MenuButton DeviceTypeMenu;

@@ -1,4 +1,10 @@
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SmartHomeController {
 
@@ -25,17 +31,4 @@ public class SmartHomeController {
 	public static void setUsername(String username) {
 		SmartHomeController.username = username;
 	}
-
-	//private static ObservableList<Device> devices;
-
-	//public static ObservableList<Device> getDevices() {
-	//	return devices;
-	//}
-
-	//public void addDevices(String _icon, String _deviceType, String _deviceName, String _status) {
-	//	devices.add(new Device(_icon, _deviceType, _deviceName, _status));
-	//}
-	
-	
-	
 }
