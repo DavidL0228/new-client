@@ -9,11 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 public class loginController extends SmartHomeController {
 
     @FXML
     private Button addUserButton;
+
+    @FXML
+    private Text errorText;
 
     @FXML
     private Button loginButton;
@@ -33,7 +37,8 @@ public class loginController extends SmartHomeController {
 
     @FXML
     void attemptLogin(MouseEvent event) throws IOException {
-    	//put login check stuff here
+        errorText.setVisible(false);
+        //put login check stuff here
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -44,12 +49,18 @@ public class loginController extends SmartHomeController {
 
         while(success < 0){
             //loop
-            System.out.println("looping %n ");
+            System.out.println("looping" );
         }
 
-        System.out.println("loop done ");
+        if(success == 0){
+            errorText.setVisible(true);
+            errorText.setText("Incorrect Username or Password");
+        } else if (success == 1){
+            System.out.println("loop done ");
+            loginSuccess(stage);
+        }
 
-        loginSuccess(stage);
+
     }
 
     void loginSuccess(Stage stage) throws IOException {

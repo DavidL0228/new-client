@@ -16,11 +16,12 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="67.00001220703125" minHeight="10.0" prefHeight="58.19999618530274" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="109.60001220703126" minHeight="7.79998779296875" prefHeight="69.00001831054688" valignment="TOP" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="78.59998168945313" valignment="TOP" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="56.600006103515625" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="78.9999938964844" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="69.19999999999999" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="109.60001220703126" minHeight="7.79998779296875" prefHeight="39.6" valignment="TOP" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="81.79998168945312" valignment="TOP" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="79.6" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="47.40003662109376" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="66.59996337890624" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="390.0">
@@ -122,6 +123,11 @@
             </TextField>
          </children>
       </GridPane>
-      <Button fx:id="addUserButton" mnemonicParsing="false" onMouseClicked="#addUser" text="Add User" GridPane.rowIndex="5" />
+      <Button fx:id="addUserButton" mnemonicParsing="false" onMouseClicked="#addUser" text="Add User" GridPane.rowIndex="6" />
+      <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR" visible="false" GridPane.rowIndex="5">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </GridPane>

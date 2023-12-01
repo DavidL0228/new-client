@@ -38,11 +38,12 @@ public class SmartClient extends AbstractClient {
 				d.setDeviceType(message.getDeviceTypes().get(index) );
 				d.setStatus(message.getDeviceStatuses().get(index));
 				devices.add(d);
+				System.out.println("device 1 name:" + d.getDeviceName());
 			}
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
 
-				//controller.displayAllDevices( devices );
+				((homeScreenController)controller).setDisplayDevices(devices);
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
 				//controller.displayConnectedDevices( devices );

@@ -41,9 +41,6 @@ public class homeScreenController extends SmartHomeController {
 	private Text welcomeText;
 
     @FXML
-    private ToolBar roomBarController = new ToolBar();
-
-    @FXML
     void addDevice(MouseEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("addDeviceMenu.fxml"));
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -51,14 +48,7 @@ public class homeScreenController extends SmartHomeController {
     	stage.setScene(scene);
     	stage.show();
     }
-    
-    @FXML
-    void addNewRoom(MouseEvent event) {
-    	Button newButton =new Button("hello");
-    	roomBarController.getItems().add(newButton);
-    }
 
-  
     @FXML
     void gotoDevice(MouseEvent event) throws IOException {
     	Parent root;
@@ -111,15 +101,20 @@ public class homeScreenController extends SmartHomeController {
     
     public ObservableList<Device> displayDevices;
 
-	public void displayAllDevices(ArrayList<Device> devices){
-		displayDevices = (ObservableList<Device>) devices;
+	public void setDisplayDevices(ArrayList<Device> devices) {
+		displayDevices = FXCollections.observableArrayList();
+		System.out.println("device 1 name:" + devices.get(0).getDeviceName());
+		this.displayDevices = (ObservableList<Device>) devices;
 	}
+
 
     public void initialize() {
     	//sets up client
     	client.setController(this);
 
 		client.requestConnectedDevices();
+
+		//System.out.println(displayDevices.getFirst().getDeviceName());
 
 		//displays the proper username
 		welcomeText.setText("Welcome Home, " + getUsername());
@@ -131,16 +126,10 @@ public class homeScreenController extends SmartHomeController {
 
 		//temp, creates temp fake devices
     	displayDevices = FXCollections.observableArrayList();
-    	displayDevices.add(new Device("light", "yeah baby", "On"));
-    	displayDevices.add(new Device("fan", "Bedroom Fan 1", "Off"));
-    	displayDevices.add(new Device("lock", "Bedroom Lock 1", "Off"));
-    	displayDevices.add(new Device("thermostat", "Bedroom Thermostat 1", "Off"));
-    	displayDevices.add(new Device("smokeAlarm", "Bedroom Smoke Alarm 1", "Off"));
-    	
-    	//displayAllDevices();
+
 
     	deviceTable.setItems(displayDevices);
-		//client.requestNetworkDevices();
+
     }
     
 }
