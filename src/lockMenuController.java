@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class lockMenuController {
+public class lockMenuController extends SmartHomeController{
 
     @FXML
     private Button backButtonController;
@@ -33,6 +33,9 @@ public class lockMenuController {
     private TextField secField;
 
     @FXML
+    private Text statusText;
+
+    @FXML
     private Button updateAutoLockButton;
 
     @FXML
@@ -51,7 +54,23 @@ public class lockMenuController {
 
     @FXML
     void updateAutoLock(MouseEvent event) {
+        int seconds = Integer.parseInt(secField.getText());
+        int min = Integer.parseInt(minField.getText());
+        int hours = Integer.parseInt(hoursField.getText());
+    }
 
+    public void displayLockStatus(String _status, int _seconds, int _min, int _hours){
+        statusText.setText(_status);
+
+        secField.setText(String.valueOf(_seconds));
+        minField.setText(String.valueOf(_min));
+        hoursField.setText(String.valueOf(_hours));
+    }
+
+    public void initialize() {
+        lockName.setText(getCurrentDeviceName());
+        client.setController(this);
+        client.requestLightStatus(getCurrentDeviceName());
     }
 
 }

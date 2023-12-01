@@ -1,3 +1,4 @@
+//class is needed for the table element on main screen.
 public class Device {
 
 	private String deviceType;
@@ -15,6 +16,7 @@ public class Device {
 		this.setDeviceName(_deviceName);
 		this.setStatus(_status);
 	}
+
 
 
 	public String getDeviceName() {

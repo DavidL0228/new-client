@@ -15,6 +15,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 public class homeScreenController extends SmartHomeController {
 
@@ -35,7 +36,10 @@ public class homeScreenController extends SmartHomeController {
 
     @FXML
     private TableColumn<Device, String> statusColumn;
-    
+
+	@FXML
+	private Text welcomeText;
+
     @FXML
     private ToolBar roomBarController = new ToolBar();
 
@@ -112,12 +116,19 @@ public class homeScreenController extends SmartHomeController {
 	}
 
     public void initialize() {
-    	SmartHomeController controller = new SmartHomeController();
+    	//sets up client
+		SmartHomeController controller = new SmartHomeController();
     	client.setController(this);
+
+		//displays the proper username
+		welcomeText.setText("Welcome Home, " + getUsername());
+
+		//sets up table display
     	iconColumn.setCellValueFactory(new PropertyValueFactory<>("deviceType"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-    	
+
+		//temp, creates temp fake devices
     	displayDevices = FXCollections.observableArrayList();
     	displayDevices.add(new Device("light", "yeah baby", "On"));
     	displayDevices.add(new Device("fan", "Bedroom Fan 1", "Off"));
