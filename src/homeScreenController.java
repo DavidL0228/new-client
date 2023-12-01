@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +15,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
-public class homeScreenController {
+public class homeScreenController extends SmartHomeController {
 
 	@FXML
     private Button addDeviceButton;
@@ -34,7 +36,10 @@ public class homeScreenController {
 
     @FXML
     private TableColumn<Device, String> statusColumn;
-    
+
+	@FXML
+	private Text welcomeText;
+
     @FXML
     private ToolBar roomBarController = new ToolBar();
 
@@ -62,6 +67,7 @@ public class homeScreenController {
     	
     	switch(deviceTable.getSelectionModel().getSelectedItem().getDeviceType()) {
     	case "light":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lightMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -69,6 +75,7 @@ public class homeScreenController {
         	stage.show();
     		break;
     	case "fan":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("fanMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -76,6 +83,7 @@ public class homeScreenController {
         	stage.show();
     		break;
     	case "lock":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lockMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -83,6 +91,7 @@ public class homeScreenController {
         	stage.show();
     		break;
     	case "smokeAlarm":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("smokeAlarmMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -90,6 +99,7 @@ public class homeScreenController {
         	stage.show();
     		break;
     	case "thermostat":
+			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("thermostatMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	scene = new Scene(root);
@@ -100,24 +110,36 @@ public class homeScreenController {
     }
     
     public ObservableList<Device> displayDevices;
-    
+
+	public void displayAllDevices(ArrayList<Device> devices){
+		displayDevices = (ObservableList<Device>) devices;
+	}
+
     public void initialize() {
-    	SmartHomeController controller = new SmartHomeController();
-    	
+    	//sets up client
+		SmartHomeController controller = new SmartHomeController();
+    	client.setController(this);
+
+		//displays the proper username
+		welcomeText.setText("Welcome Home, " + getUsername());
+
+		//sets up table display
     	iconColumn.setCellValueFactory(new PropertyValueFactory<>("deviceType"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-    	
+
+		//temp, creates temp fake devices
     	displayDevices = FXCollections.observableArrayList();
-    	displayDevices.add(new Device("light", "Bedroom Light 1", "On"));
+    	displayDevices.add(new Device("light", "yeah baby", "On"));
     	displayDevices.add(new Device("fan", "Bedroom Fan 1", "Off"));
     	displayDevices.add(new Device("lock", "Bedroom Lock 1", "Off"));
     	displayDevices.add(new Device("thermostat", "Bedroom Thermostat 1", "Off"));
     	displayDevices.add(new Device("smokeAlarm", "Bedroom Smoke Alarm 1", "Off"));
     	
-    	//displayDevices = SmartHomeController.getDevices();
-    	
+    	//displayAllDevices();
+
     	deviceTable.setItems(displayDevices);
+		//client.requestNetworkDevices();
     }
     
 }

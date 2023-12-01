@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class fanMenuController {
+public class fanMenuController extends SmartHomeController{
 
 	@FXML
     private Button addScheduleButton;
@@ -50,7 +50,7 @@ public class fanMenuController {
     @FXML
     void adjustTemp(MouseEvent event) {
     	int sliderValue = (int)tempSlider.getValue();
-    	tempText.setText(sliderValue + "%");
+    	tempText.setText(sliderValue + "°");
     }
     
     @FXML
@@ -82,29 +82,30 @@ public class fanMenuController {
     @FXML
     void updateTemp(MouseEvent event) {
     	int sliderValue = (int)tempSlider.getValue();
-    	tempText.setText(sliderValue + "%");
+    	tempText.setText(sliderValue + "°");
     	System.out.println((int)tempSlider.getValue());
     }
     
     
   //updates all the display elements of the UI to the data received from the server
-    public void displayFanStatus() {
+    public void displayFanStatus(String _fanName, String _status, int _fanSpeed, int _temperature) {
     	//sets the name
-    	fanName.setText("Bedroom Fan");
+    	fanName.setText(_fanName);
     	//sets the status
-    	status.setText("Off");
+    	status.setText(_status);
     	//sets the speed
-    	speedText.setText("0%");
-    	speedSlider.setValue(0);
+    	speedText.setText(_fanSpeed+ "%");
+    	speedSlider.setValue(_fanSpeed);
     	//sets the temperature
-    	tempText.setText("0%");
-    	tempSlider.setValue(0);	
+    	tempText.setText(_temperature + "°");
+    	tempSlider.setValue(_temperature);
     }
     
     //called when screen is first shown
     public void initialize() {
-    	//client.setController(this);
-    	displayFanStatus();	
+        fanName.setText(getCurrentDeviceName());
+        client.setController(this);
+        client.requestLightStatus(getCurrentDeviceName());
     }
     
 }

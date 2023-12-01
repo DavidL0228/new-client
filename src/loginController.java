@@ -10,7 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class loginController {
+public class loginController extends SmartHomeController {
+
+    @FXML
+    private Button addUserButton;
 
     @FXML
     private Button loginButton;
@@ -23,11 +26,58 @@ public class loginController {
 
     @FXML
     void attemptLogin(MouseEvent event) throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	Scene scene = new Scene(root);
-    	stage.setScene(scene);
-    	stage.show();
+    	//put login check stuff here
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        client.sendLoginInfo(username, password, event);
+
+        //loginSuccess(event);
+
+        //goes to main if successful
+        /*
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        */
+
+    }
+
+    void loginSuccess(MouseEvent event) throws IOException {
+
+        //sets the local username to the correct one, for use
+        setUsername(usernameField.getText());
+
+         Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+         Scene scene = new Scene(root);
+         stage.setScene(scene);
+         stage.show();
+
+
+    }
+
+    @FXML
+    void gotoAddUser(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("addUserMenu.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    public void initialize() {
+
+        client = new SmartClient("10.0.0.186",9100);
+        client.setController(this);
+        try {
+            client.openConnection();
+        } catch (IOException e) {
+           throw new RuntimeException(e);
+        }
     }
 
 }
