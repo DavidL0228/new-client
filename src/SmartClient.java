@@ -1,7 +1,6 @@
-import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.stage.Stage;
 
 public class SmartClient extends AbstractClient {
 
@@ -9,6 +8,7 @@ public class SmartClient extends AbstractClient {
 	String password;
 	SmartHomeController controller;
 	boolean isAuthenticated = false;
+	Stage stage;
 
 	public SmartClient(String host, int port) {
 		super(host, port);
@@ -38,7 +38,8 @@ public class SmartClient extends AbstractClient {
 			}
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
-				( (homeScreenController) controller ).displayAllDevices( devices );
+
+				//controller.displayAllDevices( devices );
 			}
 			else if (function.equals(Message.REQUEST_CONNECTED_DEVICES)) {
 				//controller.displayConnectedDevices( devices );
@@ -89,18 +90,25 @@ public class SmartClient extends AbstractClient {
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
 				//controller.displayThermostatStatus( message.getFirstData() );
 			}
-			else if ( function.equals("") ) {
+			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
-					try {( (loginController)controller ).loginSuccess(event);}
-					catch(IOException error) {}
+					try {
+						( (loginController)controller ).loginSuccess(stage);
+					}
+					catch(IOException e) {}
+
 				}
+			}
+			else if ( function.equals(Message.FUNCTION_FAILED) ) {
+				System.out.printf( "Failed! %n" );
 			}
 
 		}
 	}
-	private MouseEvent event;
-	public void sendLoginInfo(String username, String password, MouseEvent event) {
+
+	public void sendLoginInfo(String username, String password, Stage stage) {
+		this.stage = stage;
 		this.username = username;
 		this.password = password;
 		Message msg = new Message(username,
@@ -111,7 +119,6 @@ public class SmartClient extends AbstractClient {
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
-		this.event = event;
 		isAuthenticated = true;
 	}
 
@@ -231,6 +238,18 @@ public class SmartClient extends AbstractClient {
 				Message.SMART_LOCK,
 				deviceName,
 				Message.SET_LOCK_AFTER_TIME,
+				timeToWait);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void setLightTimeout( String deviceName, int timeToWait ) {
+
+		Message msg = new Message(username,
+				password,
+				Message.SMART_LIGHT,
+				deviceName,
+				Message.SET_LIGHT_TIMEOUT,
 				timeToWait);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
@@ -443,6 +462,38 @@ public class SmartClient extends AbstractClient {
 				"",
 				"",
 				Message.FIND_NETWORK_DEVICES,
+				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void removeFanSchedule(String deviceName) {
+		Message msg = new Message(username, password,
+				Message.SMART_FAN,
+				deviceName,
+				Message.REMOVE_FAN_SCHEDULE,
+				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void addLightSchedule(String deviceName, int brightness, Schedule schedule) {
+		MessageWithSchedule msg = new MessageWithSchedule(username,
+				password,
+				Message.SMART_LIGHT,
+				deviceName,
+				Message.SEND_LIGHT_SCHEDULE,
+				brightness, -1, -1,
+				schedule);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void removeLightSchedule(String deviceName) {
+		Message msg = new Message(username, password,
+				Message.SMART_LIGHT,
+				deviceName,
+				Message.REMOVE_LIGHT_SCHEDULE,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }

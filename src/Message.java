@@ -14,6 +14,9 @@ public class Message implements Serializable {
 	final static public String SMART_FAN 			= "SMART_FAN";
 	final static public String SMART_SMOKE_ALARM 	= "SMART_SMOKE_ALARM";
 
+	final static public String FUNCTION_SUCCESSFUL = "FUNCTION_SUCCESSFUL";
+	final static public String FUNCTION_FAILED = "FUNCTION_FAILED";
+
 	final static public String REQUEST_CONNECTED_DEVICES = "REQUEST_CONNECTED_DEVICES";
 	final static public String NOTIFY_SMOKE_ALARM_USERS 	= "NOTIFY_SMOKE_ALARM_USERS";
 	final static public String REQUEST_THERMOSTAT_STATUS = "REQUEST_THERMOSTAT_STATUS";
@@ -36,6 +39,7 @@ public class Message implements Serializable {
 	final static public String TURN_OFF_FAN = "TURN_OFF_FAN";
 
 	//int int
+	final static public String SET_LIGHT_TIMEOUT = "SET_LIGHT_TIMEOUT";
 	final static public String SET_LOCK_AFTER_TIME = "SET_LOCK_AFTER_TIME";
 	final static public String ADD_NEW_ROOM = "ADD_NEW_ROOM";
 	final static public String ADJUST_LIGHT_BRIGHTNESS = "ADJUST_LIGHT_BRIGHTNESS";

@@ -30,9 +30,10 @@ public class loginController extends SmartHomeController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        client.sendLoginInfo(username, password, event);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        client.sendLoginInfo(username, password, stage);
 
-        //loginSuccess(event);
+        //loginSuccess(stage);
 
         //goes to main if successful
         /*
@@ -45,13 +46,12 @@ public class loginController extends SmartHomeController {
 
     }
 
-    void loginSuccess(MouseEvent event) throws IOException {
+    void loginSuccess(Stage stage) throws IOException {
 
         //sets the local username to the correct one, for use
         setUsername(usernameField.getText());
 
          Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
          Scene scene = new Scene(root);
          stage.setScene(scene);
          stage.show();
