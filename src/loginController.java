@@ -54,12 +54,13 @@ public class loginController extends SmartHomeController {
 
         if(success == 0){
             errorText.setVisible(true);
-            errorText.setText("Incorrect Username or Password");
+            errorText.setText("ERROR: Incorrect Username or Password");
         } else if (success == 1){
             System.out.println("loop done ");
             loginSuccess(stage);
         }
 
+        success = -1;
 
     }
 

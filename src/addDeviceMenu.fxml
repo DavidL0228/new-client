@@ -68,7 +68,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <MenuButton fx:id="deviceTypeMenu" mnemonicParsing="false" prefHeight="34.0" prefWidth="47.0" GridPane.columnIndex="1">
+            <MenuButton fx:id="deviceTypeMenu" mnemonicParsing="false" prefHeight="34.0" prefWidth="134.0" GridPane.columnIndex="1">
               <items>
                 <MenuItem fx:id="fanButton" mnemonicParsing="false" onAction="#selectFan" text="Fan" />
                 <MenuItem fx:id="lightButton" mnemonicParsing="false" onAction="#selectLight" text="Light" />

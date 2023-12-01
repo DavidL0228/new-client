@@ -56,7 +56,7 @@ public class homeScreenController extends SmartHomeController {
     	Scene scene;
     	
     	switch(deviceTable.getSelectionModel().getSelectedItem().getDeviceType()) {
-    	case "light":
+    	case "SMART_LIGHT":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lightMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -64,7 +64,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.setScene(scene);
         	stage.show();
     		break;
-    	case "fan":
+    	case "SMART_FAN":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("fanMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -72,7 +72,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.setScene(scene);
         	stage.show();
     		break;
-    	case "lock":
+    	case "SMART_LOCK":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("lockMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -80,7 +80,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.setScene(scene);
         	stage.show();
     		break;
-    	case "smokeAlarm":
+    	case "SMART_SMOKE_ALARM":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("smokeAlarmMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -88,7 +88,7 @@ public class homeScreenController extends SmartHomeController {
         	stage.setScene(scene);
         	stage.show();
     		break;
-    	case "thermostat":
+    	case "SMART_THERMOSTAT":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
     		root = FXMLLoader.load(getClass().getResource("thermostatMenu.fxml"));
         	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -99,12 +99,16 @@ public class homeScreenController extends SmartHomeController {
     	}
     }
     
-    public ObservableList<Device> displayDevices;
+    public ObservableList<Device> displayDevices = FXCollections.observableArrayList();
 
 	public void setDisplayDevices(ArrayList<Device> devices) {
-		displayDevices = FXCollections.observableArrayList();
-		System.out.println("device 1 name:" + devices.get(0).getDeviceName());
-		this.displayDevices = (ObservableList<Device>) devices;
+		System.out.println("setDisplayDevices Called");
+		//displayDevices = FXCollections.observableArrayList();
+
+		this.displayDevices.addAll(devices);
+
+
+		System.out.println("device 1 name:" + displayDevices.get(0).getDeviceName());
 	}
 
 
@@ -124,8 +128,10 @@ public class homeScreenController extends SmartHomeController {
     	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+
 		//temp, creates temp fake devices
     	displayDevices = FXCollections.observableArrayList();
+		//displayDevices.add(new Device("light", "Bedroom Light", "Off"));
 
 
     	deviceTable.setItems(displayDevices);

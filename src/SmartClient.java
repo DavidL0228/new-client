@@ -38,7 +38,8 @@ public class SmartClient extends AbstractClient {
 				d.setDeviceType(message.getDeviceTypes().get(index) );
 				d.setStatus(message.getDeviceStatuses().get(index));
 				devices.add(d);
-				System.out.println("device 1 name:" + d.getDeviceName());
+				System.out.println("device "+ i +" name:" + d.getDeviceType());
+				index++;
 			}
 			String function = message.getWhichFunction();
 			if(function.equals(Message.FIND_NETWORK_DEVICES)) {
@@ -109,6 +110,13 @@ public class SmartClient extends AbstractClient {
 			}
 			else if ( function.equals(Message.FUNCTION_FAILED) ) {
 				System.out.printf( "Failed! %n" );
+				if(controller instanceof loginController) {
+
+					System.out.println("calling login failed ");
+					( (loginController)controller ).setSuccess(0);
+					System.out.println("success set to 0 ");
+
+				}
 			}
 
 		}
