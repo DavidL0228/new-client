@@ -69,7 +69,16 @@ public class fanMenuController extends SmartHomeController{
     
     @FXML
     void toggleFan(ActionEvent event) {
+        if (status.getText().equals("On")) {
+            System.out.println("Turning Off");
+            client.turnOffFan(getCurrentDeviceName());
+        }
+        if (status.getText().equals("Off")) {
+            System.out.println("Turning on ");
+            client.turnOnFan(getCurrentDeviceName());
+        }
 
+        client.requestFanStatus(getCurrentDeviceName());
     }
 
     @FXML
@@ -77,6 +86,8 @@ public class fanMenuController extends SmartHomeController{
     	int sliderValue = (int)speedSlider.getValue();
     	speedText.setText(sliderValue + "%");
     	System.out.println((int)speedSlider.getValue());
+        client.adjustFanSpeed(getCurrentDeviceName(), sliderValue);
+        client.requestFanStatus(getCurrentDeviceName());
     }
 
     @FXML
@@ -84,6 +95,8 @@ public class fanMenuController extends SmartHomeController{
     	int sliderValue = (int)tempSlider.getValue();
     	tempText.setText(sliderValue + "°");
     	System.out.println((int)tempSlider.getValue());
+        client.adjustFanTemperature(getCurrentDeviceName(), sliderValue);
+        client.requestFanStatus(getCurrentDeviceName());
     }
     
     
@@ -105,7 +118,7 @@ public class fanMenuController extends SmartHomeController{
     public void initialize() {
         fanName.setText(getCurrentDeviceName());
         client.setController(this);
-        client.requestLightStatus(getCurrentDeviceName());
+        client.requestFanStatus(getCurrentDeviceName());
     }
     
 }

@@ -171,11 +171,11 @@ public class lightMenuController extends SmartHomeController {
     //checks the current state of the light, and on press changes to the other state
     @FXML
     void toggleLight(MouseEvent event) {
-        if (status.getText() == "On") {
+        if (status.getText().equals("On")) {
             System.out.println("Turning Off");
             client.turnOffLight(getCurrentDeviceName());
         }
-        if (status.getText() == "Off") {
+        if (status.getText().equals("Off")) {
             System.out.println("Turning on ");
             client.turnOnLight(getCurrentDeviceName());
         }
@@ -200,11 +200,13 @@ public class lightMenuController extends SmartHomeController {
     void updateTimeout(MouseEvent event) {
 
         int seconds = (h * 60 * 60) + (m * 60) + s;
-        client.setLightTimeout(getCurrentDeviceName(), seconds);
+        client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int) brightnessSlider.getValue());
     }
 
     //updates all the display elements of the UI to the data received from the server
-    public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours, MouseEvent event) {
+    public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
+        System.out.println("Light intensity: " + intensity);
+
         //sets the name
         lightName.setText(getCurrentDeviceName());
         //sets the status
@@ -216,6 +218,8 @@ public class lightMenuController extends SmartHomeController {
         hoursField.setText(String.valueOf(timeoutHours));
         minField.setText(String.valueOf(timeoutMins));
         secField.setText(String.valueOf(timeoutSeconds));
+
+        System.out.println("Light intensity: " + intensity);
     }
 
     //called when screen is first shown

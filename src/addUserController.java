@@ -48,6 +48,7 @@ public class addUserController extends SmartHomeController {
             }
 
             if(success == 1){
+                setUsername(usernameField.getText());
                 //goes to main if successful
                 Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

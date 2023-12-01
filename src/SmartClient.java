@@ -54,6 +54,7 @@ public class SmartClient extends AbstractClient {
 		else {
 			Message message = ( Message )msg;
 			String function = message.getWhichFunction();
+			System.out.printf("%d %n", function);
 			if( function.equals(Message.REQUEST_FAN_STATUS) ) {
 				String isFanOn = message.getFirstData() == 1 ? "YES": "NO";
 				int fanSpeed = message.getSecondData();
@@ -62,6 +63,7 @@ public class SmartClient extends AbstractClient {
 				//controller.displayFanStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
+				System.out.println("request light status message received");
 				String isLightOn = message.getFirstData() == 1 ? "YES": "NO";
 				int intensity = message.getSecondData();
 				int timeout = message.getThirdData();
@@ -69,7 +71,8 @@ public class SmartClient extends AbstractClient {
 				int timeoutHours = timeoutMins / 60;
 				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
+				System.out.printf("Intensity %d %n", intensity);
+				((lightMenuController)controller).displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
@@ -210,9 +213,9 @@ public class SmartClient extends AbstractClient {
 	public void sendLightByMotionTime(String deviceName, int seconds, int intensity) {
 		Message msg = new Message(this.username,
 				this.password,
-				Message.SMART_FAN,
+				Message.SMART_LIGHT,
 				deviceName,
-				Message.SEND_FAN_SCHEDULE,
+				Message.SEND_LIGHT_BY_MOTION_TIME,
 				seconds, intensity);
 		try					  {	super.sendToServer(msg);	}
 		catch (IOException e) {	e.printStackTrace();		}
