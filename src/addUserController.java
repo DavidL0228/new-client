@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class addUserController {
+public class addUserController extends SmartHomeController {
+
 
     @FXML
     private Button addUserButton;
