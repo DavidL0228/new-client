@@ -171,11 +171,13 @@ public class lightMenuController extends SmartHomeController {
     //checks the current state of the light, and on press changes to the other state
     @FXML
     void toggleLight(MouseEvent event) {
-        if (status.getText() == "On") {
+        System.out.println("light toggle click registered");
+
+        if (status.getText().equals("On")) {
             System.out.println("Turning Off");
             client.turnOffLight(getCurrentDeviceName());
         }
-        if (status.getText() == "Off") {
+        if (status.getText().equals("Off")) {
             System.out.println("Turning on ");
             client.turnOnLight(getCurrentDeviceName());
         }
@@ -204,7 +206,7 @@ public class lightMenuController extends SmartHomeController {
     }
 
     //updates all the display elements of the UI to the data received from the server
-    public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours, MouseEvent event) {
+    public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
         //sets the name
         lightName.setText(getCurrentDeviceName());
         //sets the status

@@ -69,7 +69,7 @@ public class SmartClient extends AbstractClient {
 				int timeoutHours = timeoutMins / 60;
 				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
 				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
+				( (lightMenuController)controller).displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
@@ -404,6 +404,7 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void turnOnLight(String deviceName) {
+		System.out.println("turing on light");
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
 				deviceName,
@@ -414,6 +415,7 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void turnOffLight(String deviceName) {
+		System.out.println("turing on light");
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
 				deviceName,
