@@ -202,11 +202,13 @@ public class lightMenuController extends SmartHomeController {
     void updateTimeout(MouseEvent event) {
 
         int seconds = (h * 60 * 60) + (m * 60) + s;
-        client.setLightTimeout(getCurrentDeviceName(), seconds);
+        client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int) brightnessSlider.getValue());
     }
 
     //updates all the display elements of the UI to the data received from the server
     public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
+        System.out.println("Light intensity: " + intensity);
+
         //sets the name
         lightName.setText(getCurrentDeviceName());
         //sets the status
@@ -218,6 +220,8 @@ public class lightMenuController extends SmartHomeController {
         hoursField.setText(String.valueOf(timeoutHours));
         minField.setText(String.valueOf(timeoutMins));
         secField.setText(String.valueOf(timeoutSeconds));
+
+        System.out.println("Light intensity: " + intensity);
     }
 
     //called when screen is first shown

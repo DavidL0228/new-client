@@ -210,9 +210,9 @@ public class SmartClient extends AbstractClient {
 	public void sendLightByMotionTime(String deviceName, int seconds, int intensity) {
 		Message msg = new Message(this.username,
 				this.password,
-				Message.SMART_FAN,
+				Message.SMART_LIGHT,
 				deviceName,
-				Message.SEND_FAN_SCHEDULE,
+				Message.SEND_LIGHT_BY_MOTION_TIME,
 				seconds, intensity);
 		try					  {	super.sendToServer(msg);	}
 		catch (IOException e) {	e.printStackTrace();		}
@@ -404,7 +404,6 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void turnOnLight(String deviceName) {
-		System.out.println("turing on light");
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
 				deviceName,
@@ -415,7 +414,6 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void turnOffLight(String deviceName) {
-		System.out.println("turing on light");
 		Message msg = new Message(username, password,
 				Message.SMART_LIGHT,
 				deviceName,
