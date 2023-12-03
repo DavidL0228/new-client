@@ -21,8 +21,8 @@
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="151.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="20.199984741210926" valignment="TOP" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="8.200015258789051" prefHeight="22.400006103515636" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="22.799993896484352" vgrow="NEVER" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="43.60002441406249" vgrow="NEVER" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="22.999975585937477" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="30.600000000000023" vgrow="NEVER" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="40.19997558593752" vgrow="SOMETIMES" />
    </rowConstraints>
@@ -59,7 +59,6 @@
          </font>
       </Text>
       <Button fx:id="fanButton" mnemonicParsing="false" onAction="#toggleFan" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
-      <Slider fx:id="speedSlider" maxHeight="-Infinity" maxWidth="-Infinity" onMouseDragged="#adjustSpeed" onMouseReleased="#updateSpeed" prefHeight="24.0" prefWidth="274.0" GridPane.rowIndex="5" GridPane.valignment="TOP" />
       <GridPane GridPane.rowIndex="4">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="121.59998779296876" />
@@ -75,7 +74,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="speedText" fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="0%" GridPane.columnIndex="1">
+            <Text fx:id="speedText" fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="unset" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
@@ -119,5 +118,20 @@
          </children>
       </GridPane>
       <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" text="Schedule " GridPane.rowIndex="8" />
+      <GridPane GridPane.rowIndex="5">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="lowButton" mnemonicParsing="false" onMouseClicked="#setLow" text="Low" />
+            <Button fx:id="mediumButton" mnemonicParsing="false" onMouseClicked="#setMedium" text="Medium" GridPane.columnIndex="1" />
+            <Button fx:id="highButton" mnemonicParsing="false" onMouseClicked="#setHigh" text="High" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </GridPane>

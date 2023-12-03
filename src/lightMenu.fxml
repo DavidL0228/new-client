@@ -156,7 +156,7 @@
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours" GridPane.rowIndex="1" />
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Min" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Sec" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <MenuButton fx:id="hoursField" mnemonicParsing="false" text="0">
+                        <MenuButton fx:id="hoursField" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="0">
                           <items>
                             <MenuItem fx:id="HButton0" mnemonicParsing="false" onAction="#setH0" text="0" />
                             <MenuItem fx:id="HButton1" mnemonicParsing="false" onAction="#setH1" text="1" />
@@ -170,7 +170,7 @@
                               <MenuItem fx:id="HButton9" mnemonicParsing="false" onAction="#setH9" text="9" />
                           </items>
                         </MenuButton>
-                        <MenuButton fx:id="minField" mnemonicParsing="false" text="0" GridPane.columnIndex="1">
+                        <MenuButton fx:id="minField" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="0" GridPane.columnIndex="1">
                            <items>
                               <MenuItem fx:id="MButton0" mnemonicParsing="false" onAction="#setM0" text="0" />
                               <MenuItem fx:id="MButton1" mnemonicParsing="false" onAction="#setM1" text="1" />
@@ -184,7 +184,7 @@
                               <MenuItem fx:id="MButton9" mnemonicParsing="false" onAction="#setM9" text="9" />
                            </items>
                         </MenuButton>
-                        <MenuButton fx:id="secField" mnemonicParsing="false" text="0" GridPane.columnIndex="2">
+                        <MenuButton fx:id="secField" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="0" GridPane.columnIndex="2">
                            <items>
                               <MenuItem fx:id="SButton0" mnemonicParsing="false" onAction="#setS0" text="0" />
                               <MenuItem fx:id="SButton1" mnemonicParsing="false" onAction="#setS1" text="1" />

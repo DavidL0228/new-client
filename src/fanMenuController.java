@@ -27,7 +27,14 @@ public class fanMenuController extends SmartHomeController{
     private Text fanName;
 
     @FXML
-    private Slider speedSlider;
+    private Button highButton;
+
+    @FXML
+    private Button lowButton;
+
+    @FXML
+    private Button mediumButton;
+
 
     @FXML
     private Text speedText;
@@ -41,11 +48,11 @@ public class fanMenuController extends SmartHomeController{
     @FXML
     private Text tempText;
 
-    @FXML
-    void adjustSpeed(MouseEvent event) {
-    	int sliderValue = (int)speedSlider.getValue();
-    	speedText.setText(sliderValue + "%");
-    }
+   // @FXML
+    //void adjustSpeed(MouseEvent event) {
+    	//int sliderValue = (int)speedSlider.getValue();
+    	//speedText.setText(sliderValue + "%");
+    //}
 
     @FXML
     void adjustTemp(MouseEvent event) {
@@ -66,7 +73,24 @@ public class fanMenuController extends SmartHomeController{
     void gotoAddSchedule(MouseEvent event) {
 
     }
-    
+
+    @FXML
+    void setLow(MouseEvent event) {
+        client.adjustFanSpeed(getCurrentDeviceName(), 1);
+        client.requestFanStatus(getCurrentDeviceName());
+    }
+
+    @FXML
+    void setMedium(MouseEvent event) {
+        client.adjustFanSpeed(getCurrentDeviceName(), 2);
+        client.requestFanStatus(getCurrentDeviceName());
+    }
+    @FXML
+    void setHigh(MouseEvent event){
+        client.adjustFanSpeed(getCurrentDeviceName(), 3);
+        client.requestFanStatus(getCurrentDeviceName());
+    }
+
     @FXML
     void toggleFan(ActionEvent event) {
         if (status.getText().equals("On")) {
@@ -81,14 +105,14 @@ public class fanMenuController extends SmartHomeController{
         client.requestFanStatus(getCurrentDeviceName());
     }
 
-    @FXML
-    void updateSpeed(MouseEvent event) {
-    	int sliderValue = (int)speedSlider.getValue();
-    	speedText.setText(sliderValue + "%");
-    	System.out.println((int)speedSlider.getValue());
-        client.adjustFanSpeed(getCurrentDeviceName(), sliderValue);
-        client.requestFanStatus(getCurrentDeviceName());
-    }
+   // @FXML
+    //void updateSpeed(MouseEvent event) {
+    	//int sliderValue = (int)speedSlider.getValue();
+    	//speedText.setText(sliderValue + "%");
+    	//System.out.println((int)speedSlider.getValue());
+        //client.adjustFanSpeed(getCurrentDeviceName(), sliderValue);
+        //client.requestFanStatus(getCurrentDeviceName());
+    //}
 
     @FXML
     void updateTemp(MouseEvent event) {
@@ -107,8 +131,19 @@ public class fanMenuController extends SmartHomeController{
     	//sets the status
     	status.setText(_status);
     	//sets the speed
-    	speedText.setText(_fanSpeed+ "%");
-    	speedSlider.setValue(_fanSpeed);
+        System.out.println("Fan speed:" + _fanSpeed);
+    	if(_fanSpeed == 1){
+            speedText.setText("Low");
+        }else if(_fanSpeed == 2){
+            speedText.setText("Medium");
+        }else if(_fanSpeed == 3){
+            speedText.setText("High");
+        }else if(_fanSpeed == 0){
+            speedText.setText("Unset");
+        } else {
+            speedText.setText("bruh");
+        }
+
     	//sets the temperature
     	tempText.setText(_temperature + "°");
     	tempSlider.setValue(_temperature);

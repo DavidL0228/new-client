@@ -116,9 +116,9 @@ public class homeScreenController extends SmartHomeController {
     	//sets up client
     	client.setController(this);
 
+		//request device list from server
 		client.requestConnectedDevices();
 
-		//System.out.println(displayDevices.getFirst().getDeviceName());
 
 		//displays the proper username
 		welcomeText.setText("Welcome Home, " + getUsername());

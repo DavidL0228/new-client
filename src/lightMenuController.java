@@ -197,18 +197,21 @@ public class lightMenuController extends SmartHomeController {
         client.requestLightStatus(getCurrentDeviceName());
     }
 
+    private int h, m, s;
 
     @FXML
     void updateTimeout(MouseEvent event) {
 
         int seconds = (h * 60 * 60) + (m * 60) + s;
-        client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int) brightnessSlider.getValue());
+        System.out.println("New seconds input: " + seconds);
+        client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int)brightnessSlider.getValue());
+        client.requestLightStatus(getCurrentDeviceName());
     }
 
     //updates all the display elements of the UI to the data received from the server
     public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
-        System.out.println("Light intensity: " + intensity);
-
+        System.out.println("Display new light status");
+        System.out.println("Timeout" + timeoutHours + ":" + timeoutMins + ":" +timeoutSeconds);
         //sets the name
         lightName.setText(getCurrentDeviceName());
         //sets the status
@@ -216,10 +219,30 @@ public class lightMenuController extends SmartHomeController {
         //sets the brightness
         brightnessText.setText(intensity + "%");
         brightnessSlider.setValue(intensity);
+
         //sets the timeout time
-        hoursField.setText(String.valueOf(timeoutHours));
-        minField.setText(String.valueOf(timeoutMins));
-        secField.setText(String.valueOf(timeoutSeconds));
+        if(timeoutHours > 0){
+            hoursField.setText(String.valueOf(timeoutHours));
+        } else {
+            hoursField.setText("0");
+        }
+
+        if(timeoutMins > 0){
+            minField.setText(String.valueOf(timeoutMins));
+        } else {
+            minField.setText("0");
+        }
+
+        if(timeoutSeconds > 0){
+            secField.setText(String.valueOf(timeoutSeconds));
+        } else {
+            secField.setText("0");
+        }
+
+        //get rid of these variables
+        h = Integer.parseInt(hoursField.getText());
+        m = Integer.parseInt(minField.getText());
+        s = Integer.parseInt(secField.getText());
 
         System.out.println("Light intensity: " + intensity);
     }
@@ -233,7 +256,6 @@ public class lightMenuController extends SmartHomeController {
 
 
     //<editor-fold desc="set buttons">
-    int h, m, s = 0;
 
     @FXML
     void setH0(ActionEvent event) {

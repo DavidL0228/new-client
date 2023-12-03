@@ -27,6 +27,7 @@ public class SmartClient extends AbstractClient {
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		// TODO Auto-generated method stub
+		System.out.printf("Message From Server : %s %n", ((Message)msg).getWhichFunction() );
 		if( msg instanceof MessageWithDevices ) {
 			MessageWithDevices message = (MessageWithDevices)msg;
 			// display devices on network
@@ -55,20 +56,22 @@ public class SmartClient extends AbstractClient {
 			Message message = ( Message )msg;
 			String function = message.getWhichFunction();
 			if( function.equals(Message.REQUEST_FAN_STATUS) ) {
-				String isFanOn = message.getFirstData() == 1 ? "YES": "NO";
+				String isFanOn = message.getFirstData() == 1 ? "On": "Off";
 				int fanSpeed = message.getSecondData();
 				int fanTemp = message.getThirdData();
-				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayFanStatus( message.getFirstData() );
+				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
+				((fanMenuController)controller).displayFanStatus( message.getDeviceName(), isFanOn, fanSpeed, fanTemp);
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
-				String isLightOn = message.getFirstData() == 1 ? "YES": "NO";
+				System.out.println("Light status message received");
+				String isLightOn = message.getFirstData() == 1 ? "On": "Off";
 				int intensity = message.getSecondData();
 				int timeout = message.getThirdData();
 				int timeoutMins = timeout / 60;
 				int timeoutHours = timeoutMins / 60;
+				timeoutMins = timeoutMins - (timeoutHours * 60);
 				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
-				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
+				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
 				( (lightMenuController)controller).displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
@@ -208,6 +211,7 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void sendLightByMotionTime(String deviceName, int seconds, int intensity) {
+		System.out.println("Updating light motion time");
 		Message msg = new Message(this.username,
 				this.password,
 				Message.SMART_LIGHT,
