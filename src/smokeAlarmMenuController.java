@@ -11,7 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class smokeAlarmMenuController {
+public class smokeAlarmMenuController extends SmartHomeController {
+
+    @FXML
+    private Text alarmName;
 
     @FXML
     private Button backButtonController;
@@ -29,6 +32,9 @@ public class smokeAlarmMenuController {
     private Text smokeThresholdExceeded;
 
     @FXML
+    private Text statusText;
+
+    @FXML
     void goBackToMain(ActionEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -40,6 +46,20 @@ public class smokeAlarmMenuController {
     @FXML
     void toggleSmokeAlarm(MouseEvent event) {
 
+    }
+
+    public void displaySmokeAlarmStatus(String _status, String _smokeAmount, String _smokeThresholdExceeded, String _batteryPercent){
+
+        statusText.setText(_status);
+        smokeAmount.setText(_smokeAmount);
+        smokeThresholdExceeded.setText(_smokeThresholdExceeded);
+        batteryPercent.setText(_batteryPercent);
+    }
+
+    public void initialize() {
+        alarmName.setText(getCurrentDeviceName());
+        client.setController(this);
+        client.requestLightStatus(getCurrentDeviceName());
     }
 
 }

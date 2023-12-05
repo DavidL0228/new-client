@@ -86,7 +86,7 @@ public class SmartClient extends AbstractClient {
 				int smokeAmount = message.getFourthData();
 				String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
 
-				//controller.displayLockStatus( message.getFirstData() );
+				//controller.displaySmokeAlarmStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_THERMOSTAT_STATUS) ) {
 				String isThermoOn = message.getFirstData() == 1 ? "YES": "NO";
@@ -102,7 +102,7 @@ public class SmartClient extends AbstractClient {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
 
-						System.out.println("calling login succesfull ");
+						System.out.println("calling login successful ");
 						( (loginController)controller ).setSuccess(1);
 					System.out.println("success set to 1 ");
 

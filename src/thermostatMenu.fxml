@@ -16,11 +16,12 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="67.00001220703125" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="109.60001220703126" minHeight="7.79998779296875" prefHeight="28.0" valignment="TOP" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="109.60001220703126" minHeight="7.79998779296875" prefHeight="28.0" valignment="TOP" vgrow="NEVER" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="159.80000915527347" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="21.399987792968773" valignment="TOP" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="21.399987792968773" valignment="TOP" vgrow="NEVER" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="47.80001220703127" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="53.4000244140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="46.999975585937534" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="291.19999389648444" minHeight="10.0" prefHeight="46.999975585937534" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
@@ -50,12 +51,12 @@
             </Button>
          </children>
       </GridPane>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thermostat" textAlignment="CENTER" wrappingWidth="139.5830535888672" GridPane.rowIndex="1">
+      <Text fx:id="thermostatName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thermostat" textAlignment="CENTER" wrappingWidth="139.5830535888672" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="smokeAlarmButton" mnemonicParsing="false" onMouseClicked="#toggleSmokeAlarm" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="thermostatButton" mnemonicParsing="false" onMouseClicked="#toggleSmokeAlarm" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
       <GridPane GridPane.rowIndex="4">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="192.00001220703126" />
@@ -86,7 +87,6 @@
             </Text>
          </children>
       </GridPane>
-      <Text fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: Off" GridPane.rowIndex="3" />
       <GridPane GridPane.rowIndex="5">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
@@ -104,7 +104,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="smokeAmount" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="99" GridPane.columnIndex="1">
+            <Text fx:id="airCircText" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="99" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -128,12 +128,26 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fx:id="batteryPercent" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="99" GridPane.columnIndex="1">
+            <Text fx:id="tempModeText" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="99" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
          </children>
       </GridPane>
+      <GridPane GridPane.rowIndex="3">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="195.79998779296875" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="195.79998779296875" minWidth="10.0" prefWidth="194.20001220703125" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: " />
+            <Text fx:id="statusText" fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Off" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" text="Schedule " GridPane.rowIndex="7" />
    </children>
 </GridPane>

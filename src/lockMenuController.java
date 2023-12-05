@@ -70,7 +70,7 @@ public class lockMenuController extends SmartHomeController{
     public void initialize() {
         lockName.setText(getCurrentDeviceName());
         client.setController(this);
-        client.requestLightStatus(getCurrentDeviceName());
+        client.requestLockStatus(getCurrentDeviceName());
     }
 
 }
