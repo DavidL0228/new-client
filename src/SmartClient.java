@@ -86,7 +86,7 @@ public class SmartClient extends AbstractClient {
 
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
-				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
+				String isLocked = message.getFirstData() == 1 ? "Locked": "Unlocked";
 				int duration = message.getSecondData();
 				int durationMins = duration / 60;
 				int durationHours = durationMins / 60;
