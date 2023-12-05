@@ -88,7 +88,14 @@ public class SmartClient extends AbstractClient {
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
 				int duration = message.getSecondData();
-				//controller.displayLockStatus( message.getFirstData() );
+				int durationMins = duration / 60;
+				int durationHours = durationMins / 60;
+				durationMins = durationMins - (durationHours * 60);
+				int durationSeconds = duration - (durationMins * 60) - (durationHours * 3600);
+				try {
+					((lockMenuController)controller).displayLockStatus( isLocked, durationSeconds, durationMins, durationHours );
+				}
+				catch(Exception e) { System.out.printf("Not in Lock Menu %n"); }
 			}
 			else if( function.equals(Message.REQUEST_SMOKE_ALARM_STATUS) ) {
 				int percentage = message.getFirstData();
