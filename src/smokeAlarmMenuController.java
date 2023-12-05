@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class smokeAlarmMenuController {
+public class smokeAlarmMenuController extends SmartHomeController{
 
     @FXML
     private Button backButtonController;
