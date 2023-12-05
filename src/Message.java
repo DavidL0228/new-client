@@ -70,6 +70,7 @@ public class Message implements Serializable {
 	final static public String REQUEST_LOGOUT = "REQUEST_LOGOUT";
 	final static public String FIND_NETWORK_DEVICES = "FIND_NETWORK_DEVICES";
 	final static public String RENAME_DEVICE = "RENAME_DEVICE";
+	final static public String ADD_NEW_DEVICE = "ADD_NEW_DEVICE";
 
 	private String username;
 	private String password;

@@ -550,4 +550,12 @@ public class SmartClient extends AbstractClient {
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
+
+	public void addNewDevice(String deviceName, String deviceType) {
+		Message msg = new Message(username, password,
+				deviceType,
+				deviceName,
+				Message.ADD_NEW_DEVICE,
+				-1);
+	}
 }
