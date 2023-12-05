@@ -60,7 +60,12 @@ public class SmartClient extends AbstractClient {
 				int fanSpeed = message.getSecondData();
 				int fanTemp = message.getThirdData();
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				((fanMenuController)controller).displayFanStatus( message.getDeviceName(), isFanOn, fanSpeed, fanTemp);
+				try {
+					System.out.printf("Fan Updated :) %n");
+					((fanMenuController)controller).displayFanStatus( message.getDeviceName(), isFanOn, fanSpeed, fanTemp);
+
+				}
+				catch(Exception e) { System.out.printf("Not in Fan Menu %n"); }
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
 				System.out.println("Light status message received");
@@ -72,7 +77,13 @@ public class SmartClient extends AbstractClient {
 				timeoutMins = timeoutMins - (timeoutHours * 60);
 				int timeoutSeconds = timeout - (timeoutMins * 60) - (timeoutHours * 3600);
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				( (lightMenuController)controller).displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
+
+				try {
+					System.out.printf("Light Updated :) %n");
+					( (lightMenuController)controller).displayLightStatus( message.getDeviceName(), isLightOn, intensity, timeoutSeconds, timeoutMins, timeoutHours );
+				}
+				catch(Exception e) { System.out.printf("Not in Light Menu %n"); }
+
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
 				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
