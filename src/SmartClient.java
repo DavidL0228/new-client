@@ -529,4 +529,14 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
+	public void renameDevice(String deviceName, String newName) {
+		MessageWithName msg = new MessageWithName(username,
+				password,
+				"",
+				deviceName,
+				Message.RENAME_DEVICE,
+				newName);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
 }
