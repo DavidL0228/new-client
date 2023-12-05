@@ -125,7 +125,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <Text fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:">
+            <Text fill="#cfcccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: ">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

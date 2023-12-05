@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -36,6 +35,10 @@ public class homeScreenController extends SmartHomeController {
 
     @FXML
     private TableColumn<Device, String> statusColumn;
+
+	@FXML
+	private TableColumn<Device, Button> delColumn;
+
 
 	@FXML
 	private Text welcomeText;
@@ -103,13 +106,15 @@ public class homeScreenController extends SmartHomeController {
 
 	public void setDisplayDevices(ArrayList<Device> devices) {
 		System.out.println("setDisplayDevices Called");
-		//displayDevices = FXCollections.observableArrayList();
 
+		//sets observable list to the data
 		this.displayDevices.addAll(devices);
 
 
 		System.out.println("device 1 name:" + displayDevices.get(0).getDeviceName());
 	}
+
+
 
 
     public void initialize() {
@@ -124,14 +129,14 @@ public class homeScreenController extends SmartHomeController {
 		welcomeText.setText("Welcome Home, " + getUsername());
 
 		//sets up table display
-    	iconColumn.setCellValueFactory(new PropertyValueFactory<>("deviceType"));
-    	nameColumn.setCellValueFactory(new PropertyValueFactory<>("deviceName"));
-    	statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    	iconColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceType"));
+    	nameColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
+    	statusColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("status"));
+		//delColumn.setCellValueFactory(new PropertyValueFactory<Device, Button>("newButton"));
 
 
 		//temp, creates temp fake devices
     	displayDevices = FXCollections.observableArrayList();
-		//displayDevices.add(new Device("light", "Bedroom Light", "Off"));
 
 
     	deviceTable.setItems(displayDevices);

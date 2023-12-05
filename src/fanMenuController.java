@@ -100,6 +100,7 @@ public class fanMenuController extends SmartHomeController{
         if (status.getText().equals("Off")) {
             System.out.println("Turning on ");
             client.turnOnFan(getCurrentDeviceName());
+            client.adjustFanSpeed(getCurrentDeviceName(), 1);
         }
 
         client.requestFanStatus(getCurrentDeviceName());

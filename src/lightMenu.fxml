@@ -2,9 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -156,48 +155,9 @@
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours" GridPane.rowIndex="1" />
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Min" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Sec" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <MenuButton fx:id="hoursField" mnemonicParsing="false" prefHeight="26.0" prefWidth="56.0" text="0">
-                          <items>
-                            <MenuItem fx:id="HButton0" mnemonicParsing="false" onAction="#setH0" text="0" />
-                            <MenuItem fx:id="HButton1" mnemonicParsing="false" onAction="#setH1" text="1" />
-                              <MenuItem fx:id="HButton2" mnemonicParsing="false" onAction="#setH2" text="2" />
-                              <MenuItem fx:id="HButton3" mnemonicParsing="false" onAction="#setH3" text="3" />
-                              <MenuItem fx:id="HButton4" mnemonicParsing="false" onAction="#setH4" text="4" />
-                              <MenuItem fx:id="HButton5" mnemonicParsing="false" onAction="#setH5" text="5" />
-                              <MenuItem fx:id="HButton6" mnemonicParsing="false" onAction="#setH6" text="6" />
-                              <MenuItem fx:id="HButton7" mnemonicParsing="false" onAction="#setH7" text="7" />
-                              <MenuItem fx:id="HButton8" mnemonicParsing="false" onAction="#setH8" text="8" />
-                              <MenuItem fx:id="HButton9" mnemonicParsing="false" onAction="#setH9" text="9" />
-                          </items>
-                        </MenuButton>
-                        <MenuButton fx:id="minField" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="0" GridPane.columnIndex="1">
-                           <items>
-                              <MenuItem fx:id="MButton0" mnemonicParsing="false" onAction="#setM0" text="0" />
-                              <MenuItem fx:id="MButton1" mnemonicParsing="false" onAction="#setM1" text="1" />
-                              <MenuItem fx:id="MButton2" mnemonicParsing="false" onAction="#setM2" text="2" />
-                              <MenuItem fx:id="MButton3" mnemonicParsing="false" onAction="#setM3" text="3" />
-                              <MenuItem fx:id="MButton4" mnemonicParsing="false" onAction="#setM4" text="4" />
-                              <MenuItem fx:id="MButton5" mnemonicParsing="false" onAction="#setM5" text="5" />
-                              <MenuItem fx:id="MButton6" mnemonicParsing="false" onAction="#setM6" text="6" />
-                              <MenuItem fx:id="MButton7" mnemonicParsing="false" onAction="#setM7" text="7" />
-                              <MenuItem fx:id="MButton8" mnemonicParsing="false" onAction="#setM8" text="8" />
-                              <MenuItem fx:id="MButton9" mnemonicParsing="false" onAction="#setM9" text="9" />
-                           </items>
-                        </MenuButton>
-                        <MenuButton fx:id="secField" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="0" GridPane.columnIndex="2">
-                           <items>
-                              <MenuItem fx:id="SButton0" mnemonicParsing="false" onAction="#setS0" text="0" />
-                              <MenuItem fx:id="SButton1" mnemonicParsing="false" onAction="#setS1" text="1" />
-                              <MenuItem fx:id="SButton2" mnemonicParsing="false" onAction="#setS2" text="2" />
-                              <MenuItem fx:id="SButton3" mnemonicParsing="false" onAction="#setS3" text="3" />
-                              <MenuItem fx:id="SButton4" mnemonicParsing="false" onAction="#setS4" text="4" />
-                              <MenuItem fx:id="SButton5" mnemonicParsing="false" onAction="#setS5" text="5" />
-                              <MenuItem fx:id="SButton6" mnemonicParsing="false" onAction="#setS6" text="6" />
-                              <MenuItem fx:id="SButton7" mnemonicParsing="false" onAction="#setS7" text="7" />
-                              <MenuItem fx:id="SButton8" mnemonicParsing="false" onAction="#setS8" text="8" />
-                              <MenuItem fx:id="SButton9" mnemonicParsing="false" onAction="#setS9" text="9" />
-                           </items>
-                        </MenuButton>
+                        <TextField fx:id="hoursField" />
+                        <TextField fx:id="minField" GridPane.columnIndex="1" />
+                        <TextField fx:id="secField" GridPane.columnIndex="2" />
                      </children>
                      <GridPane.margin>
                         <Insets top="10.0" />

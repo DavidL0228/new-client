@@ -49,17 +49,28 @@ public class lockMenuController extends SmartHomeController{
 
     @FXML
     void toggleLock(MouseEvent event) {
+        if (statusText.getText().equals("Locked")) {
+            System.out.println("unLocking...");
+            client.unlock(getCurrentDeviceName());
+        }
+        if (statusText.getText().equals("Unlocked")) {
+            System.out.println("locking...");
+            client.lock(getCurrentDeviceName());
+        }
 
+        //updates the info and display
+        client.requestLockStatus(getCurrentDeviceName());
     }
 
     @FXML
     void updateAutoLock(MouseEvent event) {
-        int seconds = Integer.parseInt(secField.getText());
-        int min = Integer.parseInt(minField.getText());
-        int hours = Integer.parseInt(hoursField.getText());
+        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) + (Integer.parseInt(minField.getText()) * 60) + Integer.parseInt(secField.getText());
+        client.setLockAfterTime(getCurrentDeviceName(), seconds);
+        client.requestLockStatus(getCurrentDeviceName());
     }
 
     public void displayLockStatus(String _status, int _seconds, int _min, int _hours){
+        System.out.println("Current Lock Status: " + _status);
         statusText.setText(_status);
 
         secField.setText(String.valueOf(_seconds));

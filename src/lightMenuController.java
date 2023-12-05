@@ -12,111 +12,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+
 
 public class lightMenuController extends SmartHomeController {
 
-    //<editor-fold desc="menu items">
     @FXML
-    private MenuItem HButton0;
+    private TextField hoursField;
 
     @FXML
-    private MenuItem HButton1;
+    private TextField minField;
 
     @FXML
-    private MenuItem HButton2;
-
-    @FXML
-    private MenuItem HButton3;
-
-    @FXML
-    private MenuItem HButton4;
-
-    @FXML
-    private MenuItem HButton5;
-
-    @FXML
-    private MenuItem HButton6;
-
-    @FXML
-    private MenuItem HButton7;
-
-    @FXML
-    private MenuItem HButton8;
-
-    @FXML
-    private MenuItem HButton9;
-
-    @FXML
-    private MenuItem MButton0;
-
-    @FXML
-    private MenuItem MButton1;
-
-    @FXML
-    private MenuItem MButton2;
-
-    @FXML
-    private MenuItem MButton3;
-
-    @FXML
-    private MenuItem MButton4;
-
-    @FXML
-    private MenuItem MButton5;
-
-    @FXML
-    private MenuItem MButton6;
-
-    @FXML
-    private MenuItem MButton7;
-
-    @FXML
-    private MenuItem MButton8;
-
-    @FXML
-    private MenuItem MButton9;
-
-    @FXML
-    private MenuItem SButton0;
-
-    @FXML
-    private MenuItem SButton1;
-
-    @FXML
-    private MenuItem SButton2;
-
-    @FXML
-    private MenuItem SButton3;
-
-    @FXML
-    private MenuItem SButton4;
-
-    @FXML
-    private MenuItem SButton5;
-
-    @FXML
-    private MenuItem SButton6;
-
-    @FXML
-    private MenuItem SButton7;
-
-    @FXML
-    private MenuItem SButton8;
-
-    @FXML
-    private MenuItem SButton9;
-    //</editor-fold>
-
-    @FXML
-    private MenuButton hoursField;
-
-    @FXML
-    private MenuButton minField;
-
-    @FXML
-    private MenuButton secField;
+    private TextField secField;
 
     @FXML
     private Button addScheduleButton;
@@ -142,7 +49,7 @@ public class lightMenuController extends SmartHomeController {
     @FXML
     private Button updateTimeoutButton;
 
-    //smoothly adjusts the brightness text to match the slider. Does not send data to server untill release
+    //smoothly adjusts the brightness text to match the slider. Does not send data to server until release
     @FXML
     void adjustBrightness(MouseEvent event) {
           int sliderValue = (int) brightnessSlider.getValue();
@@ -197,12 +104,11 @@ public class lightMenuController extends SmartHomeController {
         client.requestLightStatus(getCurrentDeviceName());
     }
 
-    private int h, m, s;
 
     @FXML
     void updateTimeout(MouseEvent event) {
 
-        int seconds = (h * 60 * 60) + (m * 60) + s;
+        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) + (Integer.parseInt(minField.getText()) * 60) + Integer.parseInt(secField.getText());
         System.out.println("New seconds input: " + seconds);
         client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int)brightnessSlider.getValue());
         client.requestLightStatus(getCurrentDeviceName());
@@ -239,11 +145,6 @@ public class lightMenuController extends SmartHomeController {
             secField.setText("0");
         }
 
-        //get rid of these variables
-        h = Integer.parseInt(hoursField.getText());
-        m = Integer.parseInt(minField.getText());
-        s = Integer.parseInt(secField.getText());
-
         System.out.println("Light intensity: " + intensity);
     }
 
@@ -253,189 +154,5 @@ public class lightMenuController extends SmartHomeController {
         client.setController(this);
         client.requestLightStatus(getCurrentDeviceName());
     }
-
-
-    //<editor-fold desc="set buttons">
-
-    @FXML
-    void setH0(ActionEvent event) {
-        h = 0;
-        hoursField.setText("0");
-    }
-
-    @FXML
-    void setH1(ActionEvent event) {
-        h = 1;
-        hoursField.setText("1");
-    }
-
-    @FXML
-    void setH2(ActionEvent event) {
-        h = 2;
-        hoursField.setText("2");
-    }
-
-    @FXML
-    void setH3(ActionEvent event) {
-        h = 3;
-        hoursField.setText("3");
-    }
-
-    @FXML
-    void setH4(ActionEvent event) {
-        h = 4;
-        hoursField.setText("4");
-    }
-
-    @FXML
-    void setH5(ActionEvent event) {
-        h = 5;
-        hoursField.setText("5");
-    }
-
-    @FXML
-    void setH6(ActionEvent event) {
-        h = 6;
-        hoursField.setText("6");
-    }
-
-    @FXML
-    void setH7(ActionEvent event) {
-        h = 7;
-        hoursField.setText("7");
-    }
-
-    @FXML
-    void setH8(ActionEvent event) {
-        h = 8;
-        hoursField.setText("8");
-    }
-
-    @FXML
-    void setH9(ActionEvent event) {
-        h = 9;
-        hoursField.setText("9");
-    }
-
-    @FXML
-    void setM0(ActionEvent event) {
-        m = 0;
-        minField.setText("0");
-    }
-
-    @FXML
-    void setM1(ActionEvent event) {
-        m = 1;
-        minField.setText("1");
-    }
-
-    @FXML
-    void setM2(ActionEvent event) {
-        m = 2;
-        minField.setText("2");
-    }
-
-    @FXML
-    void setM3(ActionEvent event) {
-        m = 3;
-        minField.setText("3");
-    }
-
-    @FXML
-    void setM4(ActionEvent event) {
-        m = 4;
-        minField.setText("4");
-    }
-
-    @FXML
-    void setM5(ActionEvent event) {
-        m = 5;
-        minField.setText("5");
-    }
-
-    @FXML
-    void setM6(ActionEvent event) {
-        m = 6;
-        minField.setText("6");
-    }
-
-    @FXML
-    void setM7(ActionEvent event) {
-        m = 7;
-        minField.setText("7");
-    }
-
-    @FXML
-    void setM8(ActionEvent event) {
-        m = 8;
-        minField.setText("8");
-    }
-
-    @FXML
-    void setM9(ActionEvent event) {
-        m = 9;
-        minField.setText("9");
-    }
-
-    @FXML
-    void setS0(ActionEvent event) {
-        s = 0;
-        secField.setText("0");
-    }
-
-    @FXML
-    void setS1(ActionEvent event) {
-        s = 1;
-        secField.setText("1");
-    }
-
-    @FXML
-    void setS2(ActionEvent event) {
-        s = 2;
-        secField.setText("2");
-    }
-
-    @FXML
-    void setS3(ActionEvent event) {
-        s = 3;
-        secField.setText("3");
-    }
-
-    @FXML
-    void setS4(ActionEvent event) {
-        s = 4;
-        secField.setText("4");
-    }
-
-    @FXML
-    void setS5(ActionEvent event) {
-        s = 5;
-        secField.setText("5");
-    }
-
-    @FXML
-    void setS6(ActionEvent event) {
-        s = 6;
-        secField.setText("6");
-    }
-
-    @FXML
-    void setS7(ActionEvent event) {
-        s = 7;
-        secField.setText("7");
-    }
-
-    @FXML
-    void setS8(ActionEvent event) {
-        s = 8;
-        secField.setText("8");
-    }
-
-    @FXML
-    void setS9(ActionEvent event) {
-        s = 9;
-        secField.setText("9");
-    }
-    //</editor-fold>
 
 }

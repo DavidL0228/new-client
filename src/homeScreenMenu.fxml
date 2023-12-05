@@ -48,15 +48,19 @@
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />
          </GridPane.margin></TextArea>
-      <TableView fx:id="deviceTable" fixedCellSize="0.0" onMouseClicked="#gotoDevice" onMousePressed="#gotoDevice" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+      <TableView fx:id="deviceTable" fixedCellSize="0.0" maxWidth="1.7976931348623157E308" onMouseClicked="#gotoDevice" onMousePressed="#gotoDevice" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="iconColumn" maxWidth="1.7976931348623157E308" prefWidth="65.60003507137299" text="Device " />
-          <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" prefWidth="178.40003204345703" text="Device Name" />
-          <TableColumn fx:id="statusColumn" maxWidth="1.7976931348623157E308" prefWidth="123.20000610351565" text="Status" />
+            <TableColumn fx:id="iconColumn" maxWidth="550.0" prefWidth="125.59997117519379" text="Device " />
+          <TableColumn fx:id="nameColumn" maxWidth="550.0" minWidth="0.0" prefWidth="116.80000305175781" text="Device Name" />
+          <TableColumn fx:id="statusColumn" maxWidth="200.0" prefWidth="45.60003662109375" text="Status" />
+            <TableColumn fx:id="delColumn" maxWidth="250.0" minWidth="0.0" prefWidth="65.5999755859375" text="Delete" />
         </columns>
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
          </GridPane.margin>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button fx:id="addDeviceButton" mnemonicParsing="false" onMouseClicked="#addDevice" style="-fx-background-color: #101c50; -fx-border-radius: 5;" text="Add New Device" textFill="WHITE" GridPane.rowIndex="4" />
    </children>
