@@ -615,4 +615,21 @@ public class SmartClient extends AbstractClient {
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
+
+	public void modifySmokeAmount(String deviceName, int smokeAmount) {
+		Message msg = new Message(username, password,
+				Message.SMART_SMOKE_ALARM, deviceName,
+				Message.MODIFY_SMOKE_AMOUNT, smokeAmount);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void getDeviceType(String deviceName) {
+		Message msg = new Message(username, password,
+				"", deviceName,
+				Message.GET_DEVICE_TYPE, -1)
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
 }
