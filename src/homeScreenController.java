@@ -123,6 +123,18 @@ public class homeScreenController extends SmartHomeController {
 		//sets observable list to the data
 		this.displayDevices.addAll(devices);
 
+		for(Device index: displayDevices){
+			Button button = new Button("-");
+			button.setStyle("-fx-background-color: red");
+			button.setOnMouseClicked(event -> {
+				client.deleteDevice(index.getDeviceName());
+				client.requestConnectedDevices();
+			});
+
+			index.setNewButton(button);
+
+		}
+
 
 		System.out.println("device 1 name:" + displayDevices.get(0).getDeviceName());
 	}
@@ -137,6 +149,10 @@ public class homeScreenController extends SmartHomeController {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	public void deleteDevice() {
+
 	}
 
 	// Initializes the controller

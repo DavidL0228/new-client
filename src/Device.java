@@ -23,11 +23,11 @@ public class Device {
 		this.setStatus("Off");
 
 		// Initialize and configure the button
-		this.newButton = new Button("-");
-		newButton.setStyle("-fx-background-color: red");
-		newButton.setOnMouseClicked(event -> {
-			System.out.println(deviceName + " button pressed");
-		});
+		//this.newButton = new Button("-");
+		//newButton.setStyle("-fx-background-color: red");
+		//newButton.setOnMouseClicked(event -> {
+		//		System.out.println(deviceName + " button pressed");
+		//});
 	}
 
 	// Constructor with parameters for initializing device properties

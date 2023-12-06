@@ -4,6 +4,7 @@
  * Description: Controller class for the schedule menu screen in the Smart Home application.
  */
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -136,7 +137,6 @@ public class scheduleMenuController extends SmartHomeController{
 
         // Check the success status and navigate to the corresponding menu
         if(success == 1) {
-
             switch(deviceType){
                 case Message.SMART_LIGHT:
                     //client.addLightSchedule(getCurrentDeviceName(), 0, startTime, endTime);
@@ -178,22 +178,24 @@ public class scheduleMenuController extends SmartHomeController{
     }
 
     //displays the schedule received from the server
-    public void displaySchedule(){
-        //needs to receive a start time, and an end time and parse into a min and hour field.
+    public void displaySchedule(int startHour, int startMinute, int startSecond, int endHour, int endMinute, int endSecond){
 
-        //set these to correct value
-        startHourField.setText("");
-        startMinField.setText("");
+        Platform.runLater(() -> {
+            System.out.println("start time: " + startHour + ":" + startMinute);
+            //sets start time display
+            startHourField.setText(String.valueOf(startHour));
+            startMinField.setText(String.valueOf(startMinute));
 
-        endHourField.setText("");
-        endMinField.setText("");
-
+            //sets end time display
+            endHourField.setText(String.valueOf(endHour));
+            endMinField.setText(String.valueOf(endMinute));
+        });
     }
 
     public void initialize(){
         client.setController(this);
         title.setText("Schedule For " + getCurrentDeviceName());
-        //client.requestSchedule(getCurrentDevice());
+        client.requestSchedule(getCurrentDeviceName());
     }
 
 }

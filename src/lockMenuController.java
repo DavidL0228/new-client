@@ -93,10 +93,19 @@ public class lockMenuController extends SmartHomeController {
     // Updates the auto-lock time
     @FXML
     void updateAutoLock(MouseEvent event) {
-        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) +
-                (Integer.parseInt(minField.getText()) * 60) +
-                Integer.parseInt(secField.getText());
-        client.setLockAfterTime(getCurrentDeviceName(), seconds);
+        //checks format is correct
+        try {
+            //checks for negative numbers
+            if (!(Integer.parseInt(hoursField.getText()) < 0) && !(Integer.parseInt(minField.getText()) < 0) && !(Integer.parseInt(secField.getText()) < 0)) {
+                int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) +
+                        (Integer.parseInt(minField.getText()) * 60) +
+                        Integer.parseInt(secField.getText());
+                client.setLockAfterTime(getCurrentDeviceName(), seconds);
+            }
+        } catch(NumberFormatException ex){
+            //catches if a user inputs a number wrong
+            System.out.println("Incorrect Format");
+        }
         client.requestLockStatus(getCurrentDeviceName());
     }
 

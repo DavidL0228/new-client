@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class lightMenuController extends SmartHomeController {
 
@@ -133,11 +134,21 @@ public class lightMenuController extends SmartHomeController {
     //updates the light auto time out time
     @FXML
     void updateTimeout(MouseEvent event) {
-        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) +
-                (Integer.parseInt(minField.getText()) * 60) +
-                Integer.parseInt(secField.getText());
-        System.out.println("New seconds input: " + seconds);
-        client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int) brightnessSlider.getValue());
+        //checks inputs are valid
+        try {
+            if (!(Integer.parseInt(hoursField.getText()) < 0) && !(Integer.parseInt(minField.getText()) < 0) && !(Integer.parseInt(secField.getText()) < 0)) {
+                //sets new auto time out time
+                int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) +
+                        (Integer.parseInt(minField.getText()) * 60) +
+                        Integer.parseInt(secField.getText());
+                System.out.println("New seconds input: " + seconds);
+                client.sendLightByMotionTime(getCurrentDeviceName(), seconds, (int) brightnessSlider.getValue());
+            }
+        } catch(NumberFormatException ex){
+            //catches if a user input a number incorrectly
+            System.out.println("Incorrect format");
+        }
+        //refreshes display
         client.requestLightStatus(getCurrentDeviceName());
     }
 

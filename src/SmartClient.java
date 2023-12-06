@@ -145,7 +145,10 @@ public class SmartClient extends AbstractClient {
 				int endHour = end.getHours();
 				int endMinute = end.getMinutes();
 				int endSecond = end.getSeconds();
-				((scheduleMenuController)controller).displaySchedule();
+
+
+				//System.out.println("start time: " + startHour + ":" + startMinute);
+				((scheduleMenuController)controller).displaySchedule(startHour, startMinute, startSecond, endHour, endMinute, endSecond);
 			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
@@ -610,6 +613,7 @@ public class SmartClient extends AbstractClient {
 	}
 
 	public void deleteDevice(String deviceName) {
+		System.out.println("deleting " + deviceName);
 		Message msg = new Message(username, password,
 				"",
 				deviceName,
