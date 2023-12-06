@@ -30,8 +30,22 @@ public class addDeviceUserMenuController extends SmartHomeController {
     private TextField usernameText;
 
     @FXML
-    void addUser(MouseEvent event) {
-        //client.addUserToDevice();
+    void addUser(MouseEvent event) throws IOException{
+        errorText.setVisible(false);
+
+        if(usernameText.getText().isEmpty()){
+            errorText.setVisible(true);
+            errorText.setText("ERROR: Enter A Username");
+        } else {
+            client.addUserToDevice(getCurrentDeviceName(), usernameText.getText());
+
+            Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     private int success = -1;
@@ -123,5 +137,6 @@ public class addDeviceUserMenuController extends SmartHomeController {
 
     public void initialize(){
         client.setController(this);
+        deviceName.setText("Add User to " + getCurrentDeviceName());
     }
 }

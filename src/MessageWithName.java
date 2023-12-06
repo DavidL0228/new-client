@@ -7,6 +7,6 @@ public class MessageWithName extends Message {
     }
 
     public String getNewName() {
-        return getNewName();
+        return this.newName;
     }
 }
