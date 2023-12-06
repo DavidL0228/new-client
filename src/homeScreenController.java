@@ -19,6 +19,9 @@ import javafx.scene.text.Text;
 public class homeScreenController extends SmartHomeController {
 
 	@FXML
+	private Button logout;
+
+	@FXML
     private Button addDeviceButton;
 	
     @FXML
@@ -101,7 +104,9 @@ public class homeScreenController extends SmartHomeController {
     		break;
     	}
     }
-    
+
+
+
     public ObservableList<Device> displayDevices = FXCollections.observableArrayList();
 
 	public void setDisplayDevices(ArrayList<Device> devices) {
@@ -114,7 +119,16 @@ public class homeScreenController extends SmartHomeController {
 		System.out.println("device 1 name:" + displayDevices.get(0).getDeviceName());
 	}
 
+	@FXML
+	void attemptLogout(MouseEvent event) throws IOException {
+		client.requestLogout();
 
+		Parent root = FXMLLoader.load(getClass().getResource("loginMenu.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
 
     public void initialize() {

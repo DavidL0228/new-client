@@ -32,7 +32,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Logout">
+            <Button fx:id="logout" mnemonicParsing="false" onMouseClicked="#attemptLogout" text="Logout">
                <GridPane.margin>
                   <Insets left="10.0" top="10.0" />
                </GridPane.margin>

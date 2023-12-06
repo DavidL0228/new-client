@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -135,44 +136,45 @@ public class thermostatMenuController extends SmartHomeController{
 
     @FXML
     void updateTemps(MouseEvent event) {
-        client.maintainTemperatureRange(getCurrentDeviceName(), Integer.parseInt(minTemp.getText()), Integer.parseInt(maxTemp.getText()));
+        client.maintainTemperatureRange(getCurrentDeviceName(), Integer.parseInt(maxTemp.getText()), Integer.parseInt(minTemp.getText()));
         client.modifyTemperatureNow(getCurrentDeviceName(), Integer.parseInt(currentTemp.getText()));
         client.requestThermostatStatus(getCurrentDeviceName());
     }
 
 
     public void displayThermostatStatus(String _status, int _min, int _max, int _cur, String _isCirc, String _mode){
-        System.out.println("Updating thermostat display");
-        System.out.println("mode: " + _mode);
 
-        statusText.setText(_status);
+        Platform.runLater(()->{
+            System.out.println("Updating thermostat display");
+            System.out.println("mode: " + _mode);
 
-        if(_min > 0){
-            minTemp.setText(String.valueOf(_min));
-        } else {
-            minTemp.setText("0");
-        }
+            statusText.setText(_status);
 
-        if(_max > 0){
-            maxTemp.setText(String.valueOf(_max));
-        } else {
-            maxTemp.setText("0");
-        }
+            if(_min > 0){
+                minTemp.setText(String.valueOf(_min));
+            } else {
+                minTemp.setText("0");
+            }
 
-        if(_cur > 0){
-            currentTemp.setText(String.valueOf(_cur));
-            thermostatButton.setText(String.valueOf(_cur) + "°");
-        } else {
-            currentTemp.setText("0");
-            thermostatButton.setText("0°");
-        }
+            if(_max > 0){
+                maxTemp.setText(String.valueOf(_max));
+            } else {
+                maxTemp.setText("0");
+            }
 
+            if(_cur > 0){
+                currentTemp.setText(String.valueOf(_cur));
+                thermostatButton.setText(String.valueOf(_cur) + "°");
+            } else {
+                currentTemp.setText("0");
+                thermostatButton.setText("0°");
+            }
 
-        airCircMode.setText(_isCirc);
-        tempMode.setText(_mode);
+            airCircMode.setText(_isCirc);
+            tempMode.setText(_mode);
 
-        System.out.println("update thermostat display worked");
-
+            System.out.println("update thermostat display worked");
+        });
     }
 
     public void initialize(){

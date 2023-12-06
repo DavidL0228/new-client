@@ -76,28 +76,43 @@ public class fanMenuController extends SmartHomeController{
 
     @FXML
     void setLow(MouseEvent event) {
-        client.adjustFanSpeed(getCurrentDeviceName(), 1);
-        client.requestFanStatus(getCurrentDeviceName());
+        if(status.getText().equals("ON")){
+            client.adjustFanSpeed(getCurrentDeviceName(), 1);
+            client.requestFanStatus(getCurrentDeviceName());
+        } else {
+            //do nothing
+        }
     }
 
     @FXML
     void setMedium(MouseEvent event) {
-        client.adjustFanSpeed(getCurrentDeviceName(), 2);
-        client.requestFanStatus(getCurrentDeviceName());
+        if(status.getText().equals("ON")){
+            client.adjustFanSpeed(getCurrentDeviceName(), 2);
+            client.requestFanStatus(getCurrentDeviceName());
+        } else {
+            //do nothing
+        }
+
     }
+
     @FXML
     void setHigh(MouseEvent event){
-        client.adjustFanSpeed(getCurrentDeviceName(), 3);
-        client.requestFanStatus(getCurrentDeviceName());
+        if(status.getText().equals("ON")){
+            client.adjustFanSpeed(getCurrentDeviceName(), 3);
+            client.requestFanStatus(getCurrentDeviceName());
+        } else {
+            //do nothing
+        }
+
     }
 
     @FXML
     void toggleFan(ActionEvent event) {
-        if (status.getText().equals("On")) {
+        if (status.getText().equals("ON")) {
             System.out.println("Turning Off");
             client.turnOffFan(getCurrentDeviceName());
         }
-        if (status.getText().equals("Off")) {
+        if (status.getText().equals("OFF")) {
             System.out.println("Turning on ");
             client.turnOnFan(getCurrentDeviceName());
             client.adjustFanSpeed(getCurrentDeviceName(), 1);
@@ -127,7 +142,8 @@ public class fanMenuController extends SmartHomeController{
     
   //updates all the display elements of the UI to the data received from the server
     public void displayFanStatus(String _fanName, String _status, int _fanSpeed, int _temperature) {
-    	//sets the name
+
+        //sets the name
     	fanName.setText(_fanName);
     	//sets the status
     	status.setText(_status);

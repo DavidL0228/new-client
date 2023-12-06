@@ -139,7 +139,7 @@ public class Message implements Serializable {
 			int fourthData)
 	{
 
-		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData, fourthData);
+		this(username, password, deviceType, deviceName, whichFunction, firstData, secondData, thirdData);
 		this.dataRequired[3] = fourthData;
 
 	}Message(String username,

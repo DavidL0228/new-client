@@ -80,11 +80,11 @@ public class lightMenuController extends SmartHomeController {
     void toggleLight(MouseEvent event) {
         System.out.println("light toggle click registered");
 
-        if (status.getText().equals("On")) {
+        if (status.getText().equals("ON")) {
             System.out.println("Turning Off");
             client.turnOffLight(getCurrentDeviceName());
         }
-        if (status.getText().equals("Off")) {
+        if (status.getText().equals("OFF")) {
             System.out.println("Turning on ");
             client.turnOnLight(getCurrentDeviceName());
         }

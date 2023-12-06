@@ -57,7 +57,7 @@ public class SmartClient extends AbstractClient {
 			Message message = ( Message )msg;
 			String function = message.getWhichFunction();
 			if( function.equals(Message.REQUEST_FAN_STATUS) ) {
-				String isFanOn = message.getFirstData() == 1 ? "On": "Off";
+				String isFanOn = message.getFirstData() == 1 ? "ON": "OFF";
 				int fanSpeed = message.getSecondData();
 				int fanTemp = message.getThirdData();
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
@@ -70,7 +70,7 @@ public class SmartClient extends AbstractClient {
 			}
 			else if( function.equals(Message.REQUEST_LIGHT_STATUS) ) {
 				System.out.println("Light status message received");
-				String isLightOn = message.getFirstData() == 1 ? "On": "Off";
+				String isLightOn = message.getFirstData() == 1 ? "ON": "OFF";
 				int intensity = message.getSecondData();
 				int timeout = message.getThirdData();
 				int timeoutMins = timeout / 60;
@@ -118,7 +118,7 @@ public class SmartClient extends AbstractClient {
 				String isCirc = message.getFifthData() == 1 ? "YES": "NO";
 				String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-
+				System.out.println("min: " + min + "cur: " + now + "max: " + max);
 				try {
 					((thermostatMenuController)controller).displayThermostatStatus(isThermoOn, min, max, now, isCirc, mode);
 				} catch(Exception e) { System.out.printf("Not in Thermo Menu %n"); }
@@ -142,6 +142,13 @@ public class SmartClient extends AbstractClient {
 
 					System.out.println("calling login failed ");
 					( (loginController)controller ).setSuccess(0);
+					System.out.println("success set to 0 ");
+
+				}
+				if(controller instanceof addUserController) {
+
+					System.out.println("calling login failed ");
+					( (addUserController)controller ).setSuccess(0);
 					System.out.println("success set to 0 ");
 
 				}
