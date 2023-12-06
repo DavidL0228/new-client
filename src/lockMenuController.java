@@ -1,4 +1,8 @@
-import java.io.IOException;
+/*
+ * Author: David Loovere
+ * Course: ESOF 3050
+ * Description: Controller class for the lock menu in the Smart Home application.
+ */
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,8 +19,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class lockMenuController extends SmartHomeController{
+import java.io.IOException;
 
+public class lockMenuController extends SmartHomeController {
+
+    // FXML elements
     @FXML
     private Button backButtonController;
 
@@ -47,6 +54,7 @@ public class lockMenuController extends SmartHomeController{
     @FXML
     private Button addUserButton;
 
+    // Navigates to the add user screen
     @FXML
     void addUser(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
@@ -56,42 +64,48 @@ public class lockMenuController extends SmartHomeController{
         stage.show();
     }
 
+    // Navigates back to the main screen
     @FXML
     void goBackToMain(ActionEvent event) throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	Scene scene = new Scene(root);
-    	stage.setScene(scene);
-    	stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
+    // Toggles the lock status
     @FXML
     void toggleLock(MouseEvent event) {
         if (statusText.getText().equals("Locked")) {
-            System.out.println("unLocking...");
+            System.out.println("Unlocking...");
             client.unlock(getCurrentDeviceName());
         }
         if (statusText.getText().equals("Unlocked")) {
-            System.out.println("locking...");
+            System.out.println("Locking...");
             client.lock(getCurrentDeviceName());
         }
 
-        //updates the info and display
+        // Updates the info and display
         client.requestLockStatus(getCurrentDeviceName());
     }
 
+    // Updates the auto-lock time
     @FXML
     void updateAutoLock(MouseEvent event) {
-        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) + (Integer.parseInt(minField.getText()) * 60) + Integer.parseInt(secField.getText());
+        int seconds = (Integer.parseInt(hoursField.getText()) * 60 * 60) +
+                (Integer.parseInt(minField.getText()) * 60) +
+                Integer.parseInt(secField.getText());
         client.setLockAfterTime(getCurrentDeviceName(), seconds);
         client.requestLockStatus(getCurrentDeviceName());
     }
 
-    public void displayLockStatus(String _status, int _seconds, int _min, int _hours){
-        Platform.runLater(()-> {
+    // Updates all the display elements of the UI to the data received from the server
+    public void displayLockStatus(String _status, int _seconds, int _min, int _hours) {
+        Platform.runLater(() -> {
             System.out.println("Current Lock Status: " + _status);
             statusText.setText(_status);
-            if(_status.equals("Locked")){
+            if (_status.equals("Locked")) {
                 lockImage.setImage(new Image("icons/lock.png"));
             } else {
                 lockImage.setImage(new Image("icons/unlock.png"));
@@ -103,10 +117,10 @@ public class lockMenuController extends SmartHomeController{
         });
     }
 
+    // Called when the screen is first shown
     public void initialize() {
         lockName.setText(getCurrentDeviceName());
         client.setController(this);
         client.requestLockStatus(getCurrentDeviceName());
     }
-
 }

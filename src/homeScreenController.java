@@ -1,6 +1,11 @@
+/*
+ * Author: David Loovere
+ * Course: ESOF 3050
+ * Description: Controller class for the home screen of the Smart Home application.
+ */
+
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,14 +23,12 @@ import javafx.scene.text.Text;
 
 public class homeScreenController extends SmartHomeController {
 
+	// FXML elements
 	@FXML
 	private Button logout;
 
 	@FXML
     private Button addDeviceButton;
-	
-    @FXML
-    private Button addNewRoomButton;
 
     @FXML
     private TableView<Device> deviceTable;
@@ -42,10 +45,11 @@ public class homeScreenController extends SmartHomeController {
 	@FXML
 	private TableColumn<Device, Button> delColumn;
 
-
 	@FXML
 	private Text welcomeText;
 
+
+	// Handles adding a new device
     @FXML
     void addDevice(MouseEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("addDeviceMenu.fxml"));
@@ -55,12 +59,14 @@ public class homeScreenController extends SmartHomeController {
     	stage.show();
     }
 
+	// Handles navigation to device-specific menus
     @FXML
     void gotoDevice(MouseEvent event) throws IOException {
     	Parent root;
     	Stage stage;
     	Scene scene;
-    	
+
+		//gets the current clicked row, and goes to relevant GUI page from that
     	switch(deviceTable.getSelectionModel().getSelectedItem().getDeviceType()) {
     	case "SMART_LIGHT":
 			setCurrentDeviceName(deviceTable.getSelectionModel().getSelectedItem().getDeviceName());
@@ -107,8 +113,10 @@ public class homeScreenController extends SmartHomeController {
 
 
 
+	//observable list variable
     public ObservableList<Device> displayDevices = FXCollections.observableArrayList();
 
+	// Sets the list of devices to be displayed
 	public void setDisplayDevices(ArrayList<Device> devices) {
 		System.out.println("setDisplayDevices Called");
 
@@ -119,6 +127,7 @@ public class homeScreenController extends SmartHomeController {
 		System.out.println("device 1 name:" + displayDevices.get(0).getDeviceName());
 	}
 
+	//Handles logout attempt
 	@FXML
 	void attemptLogout(MouseEvent event) throws IOException {
 		client.requestLogout();
@@ -130,7 +139,7 @@ public class homeScreenController extends SmartHomeController {
 		stage.show();
 	}
 
-
+	// Initializes the controller
     public void initialize() {
     	//sets up client
     	client.setController(this);
@@ -148,11 +157,7 @@ public class homeScreenController extends SmartHomeController {
     	statusColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("status"));
 		delColumn.setCellValueFactory(new PropertyValueFactory<Device, Button>("newButton"));
 
-
-		//temp, creates temp fake devices
-    	displayDevices = FXCollections.observableArrayList();
-
-
+		//displays table
     	deviceTable.setItems(displayDevices);
 
     }

@@ -1,4 +1,8 @@
-import java.io.IOException;
+/*
+ * Author: David Loovere
+ * Course: ESOF 3050
+ * Description: Controller class for the fan menu in the Smart Home application.
+ */
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,9 +17,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class fanMenuController extends SmartHomeController{
+import java.io.IOException;
 
-	@FXML
+public class fanMenuController extends SmartHomeController {
+
+    // FXML elements
+    @FXML
     private Button addScheduleButton;
 
     @FXML
@@ -36,13 +43,12 @@ public class fanMenuController extends SmartHomeController{
     @FXML
     private Button mediumButton;
 
-
     @FXML
     private Text speedText;
 
     @FXML
     private Text status;
-    
+
     @FXML
     private Slider tempSlider;
 
@@ -52,6 +58,7 @@ public class fanMenuController extends SmartHomeController{
     @FXML
     private Button addUserButton;
 
+    // Navigates to the add user screen
     @FXML
     void addUser(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
@@ -61,58 +68,63 @@ public class fanMenuController extends SmartHomeController{
         stage.show();
     }
 
+    // Updates the displayed temperature based on the slider value
     @FXML
     void adjustTemp(MouseEvent event) {
-    	int sliderValue = (int)tempSlider.getValue();
-    	tempText.setText(sliderValue + "°");
+        int sliderValue = (int) tempSlider.getValue();
+        tempText.setText(sliderValue + "°");
     }
-    
+
+    // Navigates back to the main screen
     @FXML
     void goBackToMain(ActionEvent event) throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	Scene scene = new Scene(root);
-    	stage.setScene(scene);
-    	stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
+    // Placeholder for future functionality
     @FXML
     void gotoAddSchedule(MouseEvent event) {
-
+        // Add schedule functionality goes here
     }
 
+    // Sets the fan speed to low
     @FXML
     void setLow(MouseEvent event) {
-        if(status.getText().equals("ON")){
+        if (status.getText().equals("ON")) {
             client.adjustFanSpeed(getCurrentDeviceName(), 1);
             client.requestFanStatus(getCurrentDeviceName());
         } else {
-            //do nothing
+            // Do nothing
         }
     }
 
+    // Sets the fan speed to medium
     @FXML
     void setMedium(MouseEvent event) {
-        if(status.getText().equals("ON")){
+        if (status.getText().equals("ON")) {
             client.adjustFanSpeed(getCurrentDeviceName(), 2);
             client.requestFanStatus(getCurrentDeviceName());
         } else {
-            //do nothing
+            // Do nothing
         }
-
     }
 
+    // Sets the fan speed to high
     @FXML
-    void setHigh(MouseEvent event){
-        if(status.getText().equals("ON")){
+    void setHigh(MouseEvent event) {
+        if (status.getText().equals("ON")) {
             client.adjustFanSpeed(getCurrentDeviceName(), 3);
             client.requestFanStatus(getCurrentDeviceName());
         } else {
-            //do nothing
+            // Do nothing
         }
-
     }
 
+    // Toggles the fan on or off
     @FXML
     void toggleFan(ActionEvent event) {
         if (status.getText().equals("ON")) {
@@ -128,25 +140,24 @@ public class fanMenuController extends SmartHomeController{
         client.requestFanStatus(getCurrentDeviceName());
     }
 
-
+    // Updates the temperature based on the slider value
     @FXML
     void updateTemp(MouseEvent event) {
-    	int sliderValue = (int)tempSlider.getValue();
-    	tempText.setText(sliderValue + "°");
-    	System.out.println((int)tempSlider.getValue());
+        int sliderValue = (int) tempSlider.getValue();
+        tempText.setText(sliderValue + "°");
+        System.out.println((int) tempSlider.getValue());
         client.adjustFanTemperature(getCurrentDeviceName(), sliderValue);
         client.requestFanStatus(getCurrentDeviceName());
     }
-    
-    
-  //updates all the display elements of the UI to the data received from the server
+
+    // Updates all the display elements of the UI to the data received from the server
     public void displayFanStatus(String _fanName, String _status, int _fanSpeed, int _temperature) {
-        Platform.runLater(()-> {
-            //sets the name
+        Platform.runLater(() -> {
+            // Sets the name
             fanName.setText(_fanName);
-            //sets the status
+            // Sets the status
             status.setText(_status);
-            //sets the speed
+            // Sets the speed
             System.out.println("Fan speed:" + _fanSpeed);
             if (_fanSpeed == 1) {
                 speedText.setText("Low");
@@ -160,17 +171,16 @@ public class fanMenuController extends SmartHomeController{
                 speedText.setText("bruh");
             }
 
-            //sets the temperature
+            // Sets the temperature
             tempText.setText(_temperature + "°");
             tempSlider.setValue(_temperature);
         });
     }
-    
-    //called when screen is first shown
+
+    // Called when the screen is first shown
     public void initialize() {
         fanName.setText(getCurrentDeviceName());
         client.setController(this);
         client.requestFanStatus(getCurrentDeviceName());
     }
-    
 }

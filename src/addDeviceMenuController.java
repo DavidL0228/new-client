@@ -1,3 +1,9 @@
+/*
+ * Author: David Loovere
+ * Course: ESOF 3050
+ * Description: Controller class for adding a new device in the Smart Home application.
+ */
+
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -16,6 +22,7 @@ import javafx.scene.text.Text;
 
 public class addDeviceMenuController extends SmartHomeController {
 
+    // FXML elements
     @FXML
     private MenuButton deviceTypeMenu;
 
@@ -46,34 +53,40 @@ public class addDeviceMenuController extends SmartHomeController {
     @FXML
     private MenuItem thermostatButton;
 
+    // Handles adding a new device
     @FXML
     void addDevice(MouseEvent event) {
         errorText.setVisible(false);
-        if(deviceSelection == null){
+
+        // Check if a device type is selected
+        if (deviceSelection == null) {
             errorText.setVisible(true);
             errorText.setText("ERROR: No Device Type Selected");
         } else {
-            if(deviceNameText.getText().isEmpty()){
+            // Check if a device name is provided
+            if (deviceNameText.getText().isEmpty()) {
                 errorText.setVisible(true);
                 errorText.setText("ERROR: No Device Name Given");
             } else {
-               client.addNewDevice(deviceNameText.getText(), deviceSelection);
-           }
+                // Add the new device using the provided name and type
+                client.addNewDevice(deviceNameText.getText(), deviceSelection);
+            }
         }
-
     }
 
     private String deviceSelection;
 
+    // Handles going back to the main screen
     @FXML
     void goBackToMain(ActionEvent event) throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
-    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    	Scene scene = new Scene(root);
-    	stage.setScene(scene);
-    	stage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
+    // Methods to handle selecting different device types
     @FXML
     void selectAlarm(ActionEvent event) {
         deviceSelection = "smokeAlarm";
@@ -96,7 +109,6 @@ public class addDeviceMenuController extends SmartHomeController {
     void selectLock(ActionEvent event) {
         deviceSelection = "lock";
         deviceTypeMenu.setText("Lock");
-
     }
 
     @FXML
@@ -104,6 +116,4 @@ public class addDeviceMenuController extends SmartHomeController {
         deviceSelection = "thermostat";
         deviceTypeMenu.setText("Thermostat");
     }
-
-
 }
