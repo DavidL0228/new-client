@@ -622,10 +622,10 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void addUserToDevice(String deviceName) {
-		Message msg = new Message(username, password,
+	public void addUserToDevice(String deviceName, String otherUser) {
+		MessageWithName msg = new MessageWithName(username, password,
 				"", deviceName,
-				Message.ADD_USER_TO_DEVICE, -1);
+				Message.ADD_USER_TO_DEVICE, otherUser);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
