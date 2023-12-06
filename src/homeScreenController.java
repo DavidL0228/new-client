@@ -48,6 +48,13 @@ public class homeScreenController extends SmartHomeController {
 	@FXML
 	private Text welcomeText;
 
+	@FXML
+	private Text warningText;
+
+	public void warningDetected(){
+		warningText.setVisible(true);
+		warningText.setText("WARNING: Too Much Smoke Detected");
+	}
 
 	// Handles adding a new device
     @FXML

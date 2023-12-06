@@ -81,14 +81,14 @@ public class smokeAlarmMenuController extends SmartHomeController {
     // Method to handle resetting the smoke alarm
     @FXML
     void resetSmokeAlarm(MouseEvent event) {
-        // Request smoke alarm status to update the display
+        client.modifySmokeAmount(getCurrentDeviceName(), 0);
         client.requestSmokeAlarmStatus(getCurrentDeviceName());
     }
 
     // Method to handle testing the smoke alarm
     @FXML
     void testSmokeAlarm(MouseEvent event) {
-        // Request smoke alarm status to update the display
+        client.modifySmokeAmount(getCurrentDeviceName(), 100);
         client.requestSmokeAlarmStatus(getCurrentDeviceName());
     }
 
