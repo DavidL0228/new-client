@@ -73,6 +73,10 @@ public class Message implements Serializable {
 	final static public String ADD_NEW_DEVICE = "ADD_NEW_DEVICE";
 	final static public String MAKE_THERMOSTAT_COOLING = "MAKE_THERMOSTAT_COOLING";
 	final static public String MAKE_THERMOSTAT_HEATING = "MAKE_THERMOSTAT_HEATING";
+	final static public String DELETE_DEVICE = "DELETE_DEVICE";
+	final static public String ADD_USER_TO_DEVICE = "ADD_USER_TO_DEVICE";
+	final static public String MODIFY_SMOKE_AMOUNT = "MODIFY_SMOKE_AMOUNT";
+	final static public String GET_DEVICE_TYPE = "GET_DEVICE_TYPE";
 
 	private String username;
 	private String password;

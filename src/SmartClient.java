@@ -123,6 +123,9 @@ public class SmartClient extends AbstractClient {
 					((thermostatMenuController)controller).displayThermostatStatus(isThermoOn, min, max, now, isCirc, mode);
 				} catch(Exception e) { System.out.printf("Not in Thermo Menu %n"); }
 			}
+            else if(function.equals(Message.NOTIFY_SMOKE_ALARM_USERS)) {
+
+            }
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
@@ -585,6 +588,16 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
+	public void deleteDevice(String deviceName) {
+		Message msg = new Message(username, password,
+				"",
+				deviceName,
+				Message.DELETE_DEVICE,
+				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
 	public void makeThermostatCooling(String deviceName) {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
@@ -604,4 +617,29 @@ public class SmartClient extends AbstractClient {
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
+
+	public void addUserToDevice(String deviceName) {
+		Message msg = new Message(username, password,
+				"", deviceName,
+				Message.ADD_USER_TO_DEVICE, -1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void modifySmokeAmount(String deviceName, int smokeAmount) {
+		Message msg = new Message(username, password,
+				Message.SMART_SMOKE_ALARM, deviceName,
+				Message.MODIFY_SMOKE_AMOUNT, smokeAmount);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void getDeviceType(String deviceName) {
+		Message msg = new Message(username, password,
+				"", deviceName,
+				Message.GET_DEVICE_TYPE, -1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
 }
