@@ -103,7 +103,7 @@ public class loginController extends SmartHomeController {
     // Initialization method
     public void initialize() {
         // Initialize the SmartClient
-        client = new SmartClient("172.17.1.212", 9200);
+        client = new SmartClient("172.17.1.212", 9500);
         client.setController(this);
         try {
             client.openConnection();

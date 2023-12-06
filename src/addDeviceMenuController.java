@@ -55,7 +55,7 @@ public class addDeviceMenuController extends SmartHomeController {
 
     // Handles adding a new device
     @FXML
-    void addDevice(MouseEvent event) {
+    void addDevice(MouseEvent event) throws IOException {
         errorText.setVisible(false);
 
         // Check if a device type is selected
@@ -70,6 +70,12 @@ public class addDeviceMenuController extends SmartHomeController {
             } else {
                 // Add the new device using the provided name and type
                 client.addNewDevice(deviceNameText.getText(), deviceSelection);
+
+                Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
         }
     }

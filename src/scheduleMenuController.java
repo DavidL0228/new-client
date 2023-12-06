@@ -28,25 +28,19 @@ public class scheduleMenuController extends SmartHomeController{
     private Button backButtonController;
 
     @FXML
-    private MenuButton endActionMenu;
-
-    @FXML
-    private MenuButton endAmOrPmMenu;
-
-    @FXML
     private TextField endHourField;
 
     @FXML
     private TextField endMinField;
 
     @FXML
-    private Text title;
+    private TextField endSecField;
 
     @FXML
-    private MenuButton startActionMenu;
+    private TextField endValue;
 
     @FXML
-    private MenuButton startAmOrPmMenu;
+    private Text endValueText;
 
     @FXML
     private TextField startHourField;
@@ -55,7 +49,20 @@ public class scheduleMenuController extends SmartHomeController{
     private TextField startMinField;
 
     @FXML
+    private TextField startSecField;
+
+    @FXML
+    private TextField startValue;
+
+    @FXML
+    private Text startValueText;
+
+    @FXML
+    private Text title;
+
+    @FXML
     private Button updateScheduleButton;
+
 
     // Represents the success status of the user addition process
     private int success = -1;
@@ -117,44 +124,55 @@ public class scheduleMenuController extends SmartHomeController{
         //gets the device type
         client.getDeviceType(getCurrentDeviceName());
 
-        //gets the values from the textFields, to be put into the start time
-        int startHour = Integer.parseInt(startHourField.getText());
-        int startMin = Integer.parseInt(startMinField.getText());
+        try{
+            //gets the values from the textFields, to be put into the start time
+            int startHour = Integer.parseInt(startHourField.getText());
+            int startMin = Integer.parseInt(startMinField.getText());
+            int startSec = Integer.parseInt(startSecField.getText());
 
-        //gets the values from the textFields, to be put into the end time
-        int endHour = Integer.parseInt(endHourField.getText());
-        int endMin = Integer.parseInt(endMinField.getText());
+            //gets the values from the textFields, to be put into the end time
+            int endHour = Integer.parseInt(endHourField.getText());
+            int endMin = Integer.parseInt(endMinField.getText());
+            int endSec = Integer.parseInt(endSecField.getText());
 
-        //im not sure how to set these up properly, if someone can figure that out that would be great
-        Time startTime;
-        Time endTime;
+            //checks for negative values
+            if (!(startHour < 0) && !(startMin < 0) && !(startSec < 0) && !(endHour < 0) && !(endMin < 0) && !(endSec < 0)) {
+                //sets the time variable
+                Time startTime = new Time(startHour, startMin, startSec);
+                Time endTime = new Time(endHour, endMin, endSec);
 
+                // Wait for the success status
+                while (success < 0) {
+                    System.out.println("looping");
+                }
 
-        // Wait for the success status
-        while(success < 0){
-            System.out.println("looping");
-        }
+                // Check the success status and navigate to the corresponding menu
+                if (success == 1) {
+                    switch (deviceType) {
+                        case Message.SMART_LIGHT:
+                            client.addLightSchedule(getCurrentDeviceName(), 100, startTime, endTime);
+                            break;
+                        case Message.SMART_FAN:
+                            //client.sendFanSchedule(getCurrentDeviceName(), 100, startTime, endTime);
+                            break;
+                        case Message.SMART_THERMOSTAT:
+                            //client.adjustTemperatureWithSchedule(getCurrentDeviceName(), 0, startTime, endTime);
+                            break;
+                        default:
+                            System.out.println("device type not found");
+                            break;
+                    }
 
-        // Check the success status and navigate to the corresponding menu
-        if(success == 1) {
-            switch(deviceType){
-                case Message.SMART_LIGHT:
-                    //client.addLightSchedule(getCurrentDeviceName(), 0, startTime, endTime);
-                    break;
-                case Message.SMART_FAN:
-                    //client.sendFanSchedule(getCurrentDeviceName(), 100, startTime, endTime);
-                    break;
-                case Message.SMART_THERMOSTAT:
-                    //client.adjustTemperatureWithSchedule(getCurrentDeviceName(), 0, startTime, endTime);
-                    break;
-                default:
-                    //do nothing
-                    break;
+                }
+
+                success = -1;
             }
-
+        } catch(NumberFormatException ex){
+            //catches incorrect inputs
+            System.out.println("Incorrect Format");
         }
-
-        success = -1;
+        //refreshes client
+        client.requestSchedule(getCurrentDeviceName());
     }
 
     // Getter for success
@@ -185,10 +203,12 @@ public class scheduleMenuController extends SmartHomeController{
             //sets start time display
             startHourField.setText(String.valueOf(startHour));
             startMinField.setText(String.valueOf(startMinute));
+            startSecField.setText(String.valueOf(startSecond));
 
             //sets end time display
             endHourField.setText(String.valueOf(endHour));
             endMinField.setText(String.valueOf(endMinute));
+            endSecField.setText(String.valueOf(endSecond));
         });
     }
 

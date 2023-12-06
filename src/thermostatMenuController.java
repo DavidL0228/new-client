@@ -169,13 +169,21 @@ public class thermostatMenuController extends SmartHomeController {
     // Update temperature settings
     @FXML
     void updateTemps(MouseEvent event) {
-        int min = Integer.parseInt(minTemp.getText());
-        int max = Integer.parseInt(maxTemp.getText());
-        int cur =Integer.parseInt(currentTemp.getText());
+        try {
+            int min = Integer.parseInt(minTemp.getText());
+            int max = Integer.parseInt(maxTemp.getText());
+            int cur = Integer.parseInt(currentTemp.getText());
 
+            //makes sure the values are not negative
+            if (!(min < 0) && !(max < 0) && !(cur < 0)) {
+                client.maintainTemperatureRange(getCurrentDeviceName(), max, min);
+                client.modifyTemperatureNow(getCurrentDeviceName(), cur);
 
-        client.maintainTemperatureRange(getCurrentDeviceName(), max, min);
-        client.modifyTemperatureNow(getCurrentDeviceName(), cur);
+            }
+        } catch(NumberFormatException ex){
+            //catches incorrect inputs
+            System.out.println("Incorrect Format");
+        }
         client.requestThermostatStatus(getCurrentDeviceName());
     }
 

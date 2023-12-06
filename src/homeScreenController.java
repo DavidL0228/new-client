@@ -120,6 +120,9 @@ public class homeScreenController extends SmartHomeController {
 	public void setDisplayDevices(ArrayList<Device> devices) {
 		System.out.println("setDisplayDevices Called");
 
+		//resets the array
+		this.displayDevices.clear();
+
 		//sets observable list to the data
 		this.displayDevices.addAll(devices);
 
@@ -151,9 +154,6 @@ public class homeScreenController extends SmartHomeController {
 		stage.show();
 	}
 
-	public void deleteDevice() {
-
-	}
 
 	// Initializes the controller
     public void initialize() {

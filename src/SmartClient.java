@@ -147,7 +147,7 @@ public class SmartClient extends AbstractClient {
 				int endSecond = end.getSeconds();
 
 
-				//System.out.println("start time: " + startHour + ":" + startMinute);
+				System.out.println("start time: " + startHour + ":" + startMinute);
 				((scheduleMenuController)controller).displaySchedule(startHour, startMinute, startSecond, endHour, endMinute, endSecond);
 			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {

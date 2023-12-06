@@ -5,7 +5,7 @@ public class MessageWithSchedule extends Message {
 	/**
 	 *
 	 */
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Time start;
 	private Time end;
 
