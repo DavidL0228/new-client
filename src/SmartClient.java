@@ -1,5 +1,6 @@
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import javafx.stage.Stage;
 
@@ -86,7 +87,7 @@ public class SmartClient extends AbstractClient {
 
 			}
 			else if( function.equals(Message.REQUEST_LOCK_STATUS) ) {
-				String isLocked = message.getFirstData() == 1 ? "ON": "OFF";
+				String isLocked = message.getFirstData() == 1 ? "Locked": "Unlocked";
 				int duration = message.getSecondData();
 				int durationMins = duration / 60;
 				int durationHours = durationMins / 60;
@@ -103,7 +104,10 @@ public class SmartClient extends AbstractClient {
 				String isDetectorFunctional = message.getThirdData() == 1 ? "YES": "NO";
 				int smokeAmount = message.getFourthData();
 				String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
-
+				try {
+					((smokeAlarmMenuController)controller).displaySmokeAlarmStatus( message.getFirstData() );
+				}
+				catch(Exception e) { System.out.printf("Not in Smoke Alarm Menu %n"); }
 				//controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_THERMOSTAT_STATUS) ) {
@@ -113,7 +117,7 @@ public class SmartClient extends AbstractClient {
 				int now = message.getFourthData();
 				String isCirc = message.getFifthData() == 1 ? "YES": "NO";
 				String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
-				Schedule schedule = ((MessageWithSchedule)message).getSchedule();
+				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
 				//controller.displayThermostatStatus( message.getFirstData() );
 			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
@@ -216,14 +220,15 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void sendFanSchedule(String deviceName, int fanSpeed, Schedule schedule) {
+	public void sendFanSchedule(String deviceName, int fanSpeed, Time start, Time end) {
 		MessageWithSchedule msg = new MessageWithSchedule(this.username,
 				this.password,
 				Message.SMART_FAN,
 				deviceName,
 				Message.SEND_FAN_SCHEDULE,
 				fanSpeed, -1, -1,
-				schedule);
+				start,
+				end);
 		try					  {	super.sendToServer(msg);	}
 		catch (IOException e) {	e.printStackTrace();		}
 	}
@@ -341,14 +346,15 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void adjustTemperatureWithSchedule(String deviceName, int temperature, Schedule schedule) {
+	public void adjustTemperatureWithSchedule(String deviceName, int temperature, Time start, Time end) {
 		MessageWithSchedule msg = new MessageWithSchedule(username,
 				password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
 				Message.ADJUST_THERMO_TEMP_SCHEDULE,
 				temperature, -1, -1,
-				schedule);
+				start,
+				end);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
@@ -399,7 +405,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
-				Message.TURN_ON_CIRCULATION,
+				Message.TURN_ON_THERMOSTAT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
@@ -409,7 +415,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
-				Message.TURN_OFF_CIRCULATION,
+				Message.TURN_OFF_THERMOSTAT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
@@ -515,14 +521,15 @@ public class SmartClient extends AbstractClient {
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
-	public void addLightSchedule(String deviceName, int brightness, Schedule schedule) {
+	public void addLightSchedule(String deviceName, int brightness, Time start, Time end) {
 		MessageWithSchedule msg = new MessageWithSchedule(username,
 				password,
 				Message.SMART_LIGHT,
 				deviceName,
 				Message.SEND_LIGHT_SCHEDULE,
 				brightness, -1, -1,
-				schedule);
+				start,
+				end);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}

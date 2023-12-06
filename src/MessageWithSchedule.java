@@ -1,34 +1,69 @@
+import java.sql.Time;
 
 public class MessageWithSchedule extends Message {
-	
+
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
-	private Schedule schedule;
-	
+	//private static final long serialVersionUID = 1L;
+	private Time start;
+	private Time end;
+
 	MessageWithSchedule(
-			String username, 
-			String password, 
-			String deviceType, 
+			String username,
+			String password,
+			String deviceType,
 			String deviceName,
-			String whichFunction, 
+			String whichFunction,
 			int firstData,
 			int secondData,
 			int thirdData,
-			Schedule schedule) 
+			Time start,
+			Time end)
 	{
-		
+
 		super(username, password, deviceType, deviceName, whichFunction, firstData, secondData, thirdData);
-		this.schedule = schedule;
-		
+		this.start = start;
+		this.end = end;
+
 	}
 
-	public Schedule getSchedule() {
-		return schedule;
+	MessageWithSchedule(
+			String username,
+			String password,
+			String deviceType,
+			String deviceName,
+			String whichFunction,
+			int firstData,
+			int secondData,
+			Time start,
+			Time end)
+	{
+
+		super(username, password, deviceType, deviceName, whichFunction, firstData, secondData);
+		this.start = start;
+		this.end = end;
+
 	}
 
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
+	public MessageWithSchedule(String username, String password, String smartThermostat, String alias,
+							   String requestThermostatStatus, int isThermoOn, int tempMin, int tempMax, int tempNow, int isCirc,
+							   int mode, Time start, Time end) {
+		super(username, password, smartThermostat, alias, requestThermostatStatus, isThermoOn, tempMin, tempMax, tempNow, isCirc, mode);
+		this.start = start;
+		this.end = end;
+	}
+
+	public Time getStart() {
+		return start;
+	}
+	public void setStart(Time start) {
+		this.start = start;
+	}
+	public Time getEnd() {
+		return end;
+	}
+	public void setEnd(Time end) {
+		this.end = end;
 	}
 }
