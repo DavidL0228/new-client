@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,14 +128,6 @@ public class fanMenuController extends SmartHomeController{
         client.requestFanStatus(getCurrentDeviceName());
     }
 
-   // @FXML
-    //void updateSpeed(MouseEvent event) {
-    	//int sliderValue = (int)speedSlider.getValue();
-    	//speedText.setText(sliderValue + "%");
-    	//System.out.println((int)speedSlider.getValue());
-        //client.adjustFanSpeed(getCurrentDeviceName(), sliderValue);
-        //client.requestFanStatus(getCurrentDeviceName());
-    //}
 
     @FXML
     void updateTemp(MouseEvent event) {
@@ -148,28 +141,29 @@ public class fanMenuController extends SmartHomeController{
     
   //updates all the display elements of the UI to the data received from the server
     public void displayFanStatus(String _fanName, String _status, int _fanSpeed, int _temperature) {
+        Platform.runLater(()-> {
+            //sets the name
+            fanName.setText(_fanName);
+            //sets the status
+            status.setText(_status);
+            //sets the speed
+            System.out.println("Fan speed:" + _fanSpeed);
+            if (_fanSpeed == 1) {
+                speedText.setText("Low");
+            } else if (_fanSpeed == 2) {
+                speedText.setText("Medium");
+            } else if (_fanSpeed == 3) {
+                speedText.setText("High");
+            } else if (_fanSpeed == 0) {
+                speedText.setText("Unset");
+            } else {
+                speedText.setText("bruh");
+            }
 
-        //sets the name
-    	fanName.setText(_fanName);
-    	//sets the status
-    	status.setText(_status);
-    	//sets the speed
-        System.out.println("Fan speed:" + _fanSpeed);
-    	if(_fanSpeed == 1){
-            speedText.setText("Low");
-        }else if(_fanSpeed == 2){
-            speedText.setText("Medium");
-        }else if(_fanSpeed == 3){
-            speedText.setText("High");
-        }else if(_fanSpeed == 0){
-            speedText.setText("Unset");
-        } else {
-            speedText.setText("bruh");
-        }
-
-    	//sets the temperature
-    	tempText.setText(_temperature + "°");
-    	tempSlider.setValue(_temperature);
+            //sets the temperature
+            tempText.setText(_temperature + "°");
+            tempSlider.setValue(_temperature);
+        });
     }
     
     //called when screen is first shown

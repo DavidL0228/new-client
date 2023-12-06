@@ -4,6 +4,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+David Loovere
+ESOF-3050
+Smart Home Project
+guiMain.java - main driver
+ */
+
+
+
 public class guiMain extends Application {
 
 	@Override

@@ -111,12 +111,6 @@ public class addDeviceUserMenuController extends SmartHomeController {
             //do nothing
         }
 
-
-        Parent root = FXMLLoader.load(getClass().getResource("lightMenu.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public int getSuccess() {

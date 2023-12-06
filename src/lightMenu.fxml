@@ -77,7 +77,10 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="lightButton" mnemonicParsing="false" onMouseClicked="#toggleLight" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="lightButton" mnemonicParsing="false" onMouseClicked="#toggleLight" prefHeight="146.0" prefWidth="178.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" GridPane.rowIndex="2">
+         <graphic>
+            <ImageView fx:id="lightImage" fitHeight="131.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
       <GridPane GridPane.rowIndex="5" GridPane.valignment="TOP">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="64.20001602172852" minWidth="10.0" prefWidth="43.400028228759766" />
@@ -190,6 +193,6 @@
             </GridPane>
          </children>
       </GridPane>
-      <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" text="Schedule " GridPane.rowIndex="7" />
+      <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" GridPane.rowIndex="7" />
    </children>
 </GridPane>

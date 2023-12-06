@@ -73,7 +73,14 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="fanButton" mnemonicParsing="false" onAction="#toggleFan" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="fanButton" mnemonicParsing="false" onAction="#toggleFan" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" GridPane.rowIndex="2">
+         <graphic>
+            <ImageView fitHeight="144.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/fan.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <GridPane GridPane.rowIndex="4">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="121.59998779296876" />

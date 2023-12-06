@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,15 +75,16 @@ public class smokeAlarmMenuController extends SmartHomeController {
 
     @FXML
     void testSmokeAlarm(MouseEvent event) {
-
         client.requestSmokeAlarmStatus(getCurrentDeviceName());
     }
 
     public void displaySmokeAlarmStatus(String _status, int _smokeAmount, String _smokeThresholdExceeded, int _batteryPercent){
-        statusText.setText(_status);
-        smokeAmount.setText(String.valueOf(_smokeAmount));
-        smokeThresholdExceeded.setText(_smokeThresholdExceeded);
-        batteryPercent.setText(String.valueOf(_batteryPercent));
+        Platform.runLater(()-> {
+            statusText.setText(_status);
+            smokeAmount.setText(String.valueOf(_smokeAmount));
+            smokeThresholdExceeded.setText(_smokeThresholdExceeded);
+            batteryPercent.setText(String.valueOf(_batteryPercent));
+        });
     }
 
     public void initialize() {

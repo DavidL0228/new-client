@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,6 +28,9 @@ public class lockMenuController extends SmartHomeController{
 
     @FXML
     private Text lockName;
+
+    @FXML
+    private ImageView lockImage;
 
     @FXML
     private TextField minField;
@@ -82,12 +88,19 @@ public class lockMenuController extends SmartHomeController{
     }
 
     public void displayLockStatus(String _status, int _seconds, int _min, int _hours){
-        System.out.println("Current Lock Status: " + _status);
-        statusText.setText(_status);
+        Platform.runLater(()-> {
+            System.out.println("Current Lock Status: " + _status);
+            statusText.setText(_status);
+            if(_status.equals("Locked")){
+                lockImage.setImage(new Image("icons/lock.png"));
+            } else {
+                lockImage.setImage(new Image("icons/unlock.png"));
+            }
 
-        secField.setText(String.valueOf(_seconds));
-        minField.setText(String.valueOf(_min));
-        hoursField.setText(String.valueOf(_hours));
+            secField.setText(String.valueOf(_seconds));
+            minField.setText(String.valueOf(_min));
+            hoursField.setText(String.valueOf(_hours));
+        });
     }
 
     public void initialize() {

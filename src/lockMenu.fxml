@@ -70,7 +70,10 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="lockButton" mnemonicParsing="false" onMouseClicked="#toggleLock" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="lockButton" mnemonicParsing="false" onMouseClicked="#toggleLock" prefHeight="135.0" prefWidth="166.0" style="-fx-background-color: #101c50; -fx-background-radius: 5;" GridPane.rowIndex="2">
+         <graphic>
+            <ImageView fx:id="lockImage" fitHeight="143.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
       <GridPane GridPane.rowIndex="4">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="163.8000244140625" />

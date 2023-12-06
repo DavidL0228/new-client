@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 
 public class lightMenuController extends SmartHomeController {
@@ -51,6 +54,9 @@ public class lightMenuController extends SmartHomeController {
 
     @FXML
     private Button addUserButton;
+
+    @FXML
+    private ImageView lightImage;
 
     @FXML
     void addUser(MouseEvent event) throws IOException {
@@ -128,36 +134,46 @@ public class lightMenuController extends SmartHomeController {
 
     //updates all the display elements of the UI to the data received from the server
     public void displayLightStatus(String _deviceName, String _isLightOn, int intensity, int timeoutSeconds, int timeoutMins, int timeoutHours) {
-        System.out.println("Display new light status");
-        System.out.println("Timeout" + timeoutHours + ":" + timeoutMins + ":" +timeoutSeconds);
-        //sets the name
-        lightName.setText(getCurrentDeviceName());
-        //sets the status
-        status.setText(_isLightOn);
-        //sets the brightness
-        brightnessText.setText(intensity + "%");
-        brightnessSlider.setValue(intensity);
 
-        //sets the timeout time
-        if(timeoutHours > 0){
-            hoursField.setText(String.valueOf(timeoutHours));
-        } else {
-            hoursField.setText("0");
-        }
+        Platform.runLater(()-> {
+            System.out.println("Display new light status");
+            System.out.println("Timeout" + timeoutHours + ":" + timeoutMins + ":" + timeoutSeconds);
+            //sets the name
+            lightName.setText(getCurrentDeviceName());
+            //sets the status
+            status.setText(_isLightOn);
+            if (_isLightOn.equals("ON")) {
+                lightImage.setImage(new Image("icons/Light_On_Bright.png", true));
+            } else {
+                lightImage.setImage(new Image("icons/light_Off.png", true));
+            }
 
-        if(timeoutMins > 0){
-            minField.setText(String.valueOf(timeoutMins));
-        } else {
-            minField.setText("0");
-        }
+            //sets the brightness
+            brightnessText.setText(intensity + "%");
+            brightnessSlider.setValue(intensity);
 
-        if(timeoutSeconds > 0){
-            secField.setText(String.valueOf(timeoutSeconds));
-        } else {
-            secField.setText("0");
-        }
+            //sets the timeout time
+            if (timeoutHours > 0) {
+                hoursField.setText(String.valueOf(timeoutHours));
+            } else {
+                hoursField.setText("0");
+            }
 
-        System.out.println("Light intensity: " + intensity);
+            if (timeoutMins > 0) {
+                minField.setText(String.valueOf(timeoutMins));
+            } else {
+                minField.setText("0");
+            }
+
+            if (timeoutSeconds > 0) {
+                secField.setText(String.valueOf(timeoutSeconds));
+            } else {
+                secField.setText("0");
+            }
+
+            System.out.println("Light intensity: " + intensity);
+
+        });
     }
 
     //called when screen is first shown
