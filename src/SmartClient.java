@@ -375,7 +375,7 @@ public class SmartClient extends AbstractClient {
 				password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
-				Message.MODIFY_THERMO_TEMP_NOW,
+				Message.MAINTAIN_TEMP_RANGE,
 				high, low);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
@@ -571,5 +571,25 @@ public class SmartClient extends AbstractClient {
 				deviceName,
 				Message.ADD_NEW_DEVICE,
 				-1);
+	}
+
+	public void makeThermostatCooling(String deviceName) {
+		Message msg = new Message(username, password,
+				Message.SMART_THERMOSTAT,
+				deviceName,
+				Message.MAKE_THERMOSTAT_COOLING,
+				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void makeThermostatHeating(String deviceName) {
+		Message msg = new Message(username, password,
+				Message.SMART_THERMOSTAT,
+				deviceName,
+				Message.MAKE_THERMOSTAT_HEATING,
+				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
 	}
 }
