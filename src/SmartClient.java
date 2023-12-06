@@ -136,6 +136,17 @@ public class SmartClient extends AbstractClient {
 				}
 
 			}
+			else if(function.equals(Message.REQUEST_SCHEDULE)) {
+				Time start = ((MessageWithSchedule)message).getStart();
+				Time end = ((MessageWithSchedule)message).getEnd();
+				int startHour = start.getHours();
+				int startMinute = start.getMinutes();
+				int startSecond = start.getSeconds();
+				int endHour = end.getHours();
+				int endMinute = end.getMinutes();
+				int endSecond = end.getSeconds();
+				((scheduleMenuController)controller).displaySchedule();
+			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
@@ -648,6 +659,14 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username, password,
 				"", deviceName,
 				Message.GET_DEVICE_TYPE, -1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void requestSchedule(String deviceName) {
+		Message msg = new Message(username, password,
+				"", deviceName,
+				Message.REQUEST_SCHEDULE, -1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}

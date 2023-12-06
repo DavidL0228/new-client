@@ -77,6 +77,7 @@ public class Message implements Serializable {
 	final static public String ADD_USER_TO_DEVICE = "ADD_USER_TO_DEVICE";
 	final static public String MODIFY_SMOKE_AMOUNT = "MODIFY_SMOKE_AMOUNT";
 	final static public String GET_DEVICE_TYPE = "GET_DEVICE_TYPE";
+	final static public String REQUEST_SCHEDULE = "REQUEST_SCHEDULE";
 
 	private String username;
 	private String password;
