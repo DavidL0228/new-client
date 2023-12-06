@@ -1,4 +1,7 @@
 import javafx.scene.control.Button;
+
+import java.awt.*;
+
 //class is needed for the table element on main screen.
 public class Device {
 
@@ -13,6 +16,8 @@ public class Device {
 		this.setDeviceName("default name");
 		this.setStatus("Off");
 		this.newButton = new Button("-");
+		newButton.setStyle("-fx-background-color: red");
+		newButton.setOnMouseClicked(event -> {System.out.println(deviceName + "button pressed");});
 	}
 	
 	public Device(String _deviceType, String _deviceName, String _status) {

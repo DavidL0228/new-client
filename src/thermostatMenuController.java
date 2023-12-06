@@ -96,12 +96,14 @@ public class thermostatMenuController extends SmartHomeController{
 
     @FXML
     void setCooling(ActionEvent event) {
-
+        client.makeThermostatCooling(getCurrentDeviceName());
+        client.requestThermostatStatus(getCurrentDeviceName());
     }
 
     @FXML
     void setHeating(ActionEvent event) {
-
+        client.makeThermostatHeating(getCurrentDeviceName());
+        client.requestThermostatStatus(getCurrentDeviceName());
     }
 
     @FXML
@@ -140,16 +142,36 @@ public class thermostatMenuController extends SmartHomeController{
 
 
     public void displayThermostatStatus(String _status, int _min, int _max, int _cur, String _isCirc, String _mode){
+        System.out.println("Updating thermostat display");
+        System.out.println("mode: " + _mode);
+
         statusText.setText(_status);
 
-        minTemp.setText(String.valueOf(_min));
-        maxTemp.setText(String.valueOf(_max));
+        if(_min > 0){
+            minTemp.setText(String.valueOf(_min));
+        } else {
+            minTemp.setText("0");
+        }
 
-        currentTemp.setText(String.valueOf(_cur));
-        thermostatButton.setText(String.valueOf(_cur) + "°");
+        if(_max > 0){
+            maxTemp.setText(String.valueOf(_max));
+        } else {
+            maxTemp.setText("0");
+        }
+
+        if(_cur > 0){
+            currentTemp.setText(String.valueOf(_cur));
+            thermostatButton.setText(String.valueOf(_cur) + "°");
+        } else {
+            currentTemp.setText("0");
+            thermostatButton.setText("0°");
+        }
+
 
         airCircMode.setText(_isCirc);
         tempMode.setText(_mode);
+
+        System.out.println("update thermostat display worked");
 
     }
 

@@ -574,6 +574,8 @@ public class SmartClient extends AbstractClient {
 				deviceName,
 				Message.ADD_NEW_DEVICE,
 				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
 	}
 
 	public void makeThermostatCooling(String deviceName) {

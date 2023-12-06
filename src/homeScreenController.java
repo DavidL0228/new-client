@@ -132,7 +132,7 @@ public class homeScreenController extends SmartHomeController {
     	iconColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceType"));
     	nameColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
     	statusColumn.setCellValueFactory(new PropertyValueFactory<Device, String>("status"));
-		//delColumn.setCellValueFactory(new PropertyValueFactory<Device, Button>("newButton"));
+		delColumn.setCellValueFactory(new PropertyValueFactory<Device, Button>("newButton"));
 
 
 		//temp, creates temp fake devices

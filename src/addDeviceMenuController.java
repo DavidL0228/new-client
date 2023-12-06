@@ -57,7 +57,7 @@ public class addDeviceMenuController extends SmartHomeController {
                 errorText.setVisible(true);
                 errorText.setText("ERROR: No Device Name Given");
             } else {
-                System.out.println("good");
+               client.addNewDevice(deviceNameText.getText(), deviceSelection);
            }
         }
 
@@ -88,7 +88,7 @@ public class addDeviceMenuController extends SmartHomeController {
 
     @FXML
     void selectLight(ActionEvent event) {
-        deviceSelection = "light";
+        deviceSelection = Message.SMART_LIGHT;
         deviceTypeMenu.setText("Light");
     }
 
