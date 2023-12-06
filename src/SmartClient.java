@@ -127,8 +127,14 @@ public class SmartClient extends AbstractClient {
 
             }
 			else if(function.equals(Message.GET_DEVICE_TYPE)) {
-				((addDeviceUserMenuController)controller).setDeviceType(message.getDeviceType());
-				((addDeviceUserMenuController)controller).setSuccess(1);
+				if (controller instanceof addDeviceUserMenuController) {
+					((addDeviceUserMenuController) controller).setDeviceType(message.getDeviceType());
+					((addDeviceUserMenuController) controller).setSuccess(1);
+				} else if (controller instanceof scheduleMenuController) {
+					((scheduleMenuController) controller).setDeviceType(message.getDeviceType());
+					((scheduleMenuController) controller).setSuccess(1);
+				}
+
 			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
