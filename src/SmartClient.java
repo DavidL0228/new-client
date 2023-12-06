@@ -405,7 +405,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
-				Message.TURN_ON_CIRCULATION,
+				Message.TURN_ON_THERMOSTAT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
@@ -415,7 +415,7 @@ public class SmartClient extends AbstractClient {
 		Message msg = new Message(username, password,
 				Message.SMART_THERMOSTAT,
 				deviceName,
-				Message.TURN_OFF_CIRCULATION,
+				Message.TURN_OFF_THERMOSTAT,
 				-1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
