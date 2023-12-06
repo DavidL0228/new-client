@@ -50,7 +50,7 @@
             </Button>
          </children>
       </GridPane>
-      <Text fx:id="alarmName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Smoke Alarm" textAlignment="CENTER" wrappingWidth="139.5830535888672" GridPane.rowIndex="1">
+      <Text fx:id="alarmName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Smoke Alarm" textAlignment="CENTER" wrappingWidth="389.18299865722656" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES">
          <font>
             <Font size="20.0" />
          </font>

@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.MenuItem;
+import javafx.scene.text.Text;
 
 public class addDeviceMenuController extends SmartHomeController {
 
@@ -23,6 +24,9 @@ public class addDeviceMenuController extends SmartHomeController {
 
     @FXML
     private MenuItem alarmButton;
+
+    @FXML
+    private Text errorText;
 
     @FXML
     private Button backButtonController;
@@ -44,10 +48,17 @@ public class addDeviceMenuController extends SmartHomeController {
 
     @FXML
     void addDevice(MouseEvent event) {
-    	if(deviceSelection == null){
-
+        errorText.setVisible(false);
+        if(deviceSelection == null){
+            errorText.setVisible(true);
+            errorText.setText("ERROR: No Device Type Selected");
         } else {
-
+            if(deviceNameText.getText().isEmpty()){
+                errorText.setVisible(true);
+                errorText.setText("ERROR: No Device Name Given");
+            } else {
+                System.out.println("good");
+           }
         }
 
     }

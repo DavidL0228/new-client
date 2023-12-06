@@ -101,24 +101,27 @@ public class SmartClient extends AbstractClient {
 			else if( function.equals(Message.REQUEST_SMOKE_ALARM_STATUS) ) {
 				int percentage = message.getFirstData();
 				String isSoundFunctional = message.getSecondData() == 1 ? "YES": "NO";
-				String isDetectorFunctional = message.getThirdData() == 1 ? "YES": "NO";
+				String isDetectorFunctional = message.getThirdData() == 1 ? "ON": "OFF";
 				int smokeAmount = message.getFourthData();
 				String isSmokeTooMuch = message.getFifthData() == 1 ? "YES": "NO";
 				try {
-					((smokeAlarmMenuController)controller).displaySmokeAlarmStatus( message.getFirstData() );
+					((smokeAlarmMenuController)controller).displaySmokeAlarmStatus(isDetectorFunctional, smokeAmount, isSmokeTooMuch, percentage);
 				}
 				catch(Exception e) { System.out.printf("Not in Smoke Alarm Menu %n"); }
 				//controller.displayLockStatus( message.getFirstData() );
 			}
 			else if( function.equals(Message.REQUEST_THERMOSTAT_STATUS) ) {
-				String isThermoOn = message.getFirstData() == 1 ? "YES": "NO";
+				String isThermoOn = message.getFirstData() == 1 ? "ON": "OFF";
 				int min = message.getSecondData();
 				int max = message.getThirdData();
 				int now = message.getFourthData();
 				String isCirc = message.getFifthData() == 1 ? "YES": "NO";
 				String mode = message.getSixthData() == 1 ? "Heating": "Cooling";
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
-				//controller.displayThermostatStatus( message.getFirstData() );
+
+				try {
+					((thermostatMenuController)controller).displayThermostatStatus(isThermoOn, min, max, now, isCirc, mode);
+				} catch(Exception e) { System.out.printf("Not in Thermo Menu %n"); }
 			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );

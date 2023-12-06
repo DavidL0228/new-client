@@ -48,18 +48,17 @@ public class smokeAlarmMenuController extends SmartHomeController {
 
     }
 
-    public void displaySmokeAlarmStatus(String _status, String _smokeAmount, String _smokeThresholdExceeded, String _batteryPercent){
-
+    public void displaySmokeAlarmStatus(String _status, int _smokeAmount, String _smokeThresholdExceeded, int _batteryPercent){
         statusText.setText(_status);
-        smokeAmount.setText(_smokeAmount);
+        smokeAmount.setText(String.valueOf(_smokeAmount));
         smokeThresholdExceeded.setText(_smokeThresholdExceeded);
-        batteryPercent.setText(_batteryPercent);
+        batteryPercent.setText(String.valueOf(_batteryPercent));
     }
 
     public void initialize() {
         alarmName.setText(getCurrentDeviceName());
         client.setController(this);
-        client.requestLightStatus(getCurrentDeviceName());
+        client.requestSmokeAlarmStatus(getCurrentDeviceName());
     }
 
 }
