@@ -627,7 +627,7 @@ public class SmartClient extends AbstractClient {
 	public void getDeviceType(String deviceName) {
 		Message msg = new Message(username, password,
 				"", deviceName,
-				Message.GET_DEVICE_TYPE, -1)
+				Message.GET_DEVICE_TYPE, -1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
