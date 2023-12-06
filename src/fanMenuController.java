@@ -48,11 +48,17 @@ public class fanMenuController extends SmartHomeController{
     @FXML
     private Text tempText;
 
-   // @FXML
-    //void adjustSpeed(MouseEvent event) {
-    	//int sliderValue = (int)speedSlider.getValue();
-    	//speedText.setText(sliderValue + "%");
-    //}
+    @FXML
+    private Button addUserButton;
+
+    @FXML
+    void addUser(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     void adjustTemp(MouseEvent event) {

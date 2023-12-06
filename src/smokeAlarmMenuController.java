@@ -35,6 +35,24 @@ public class smokeAlarmMenuController extends SmartHomeController {
     private Text statusText;
 
     @FXML
+    private Button addUserButton;
+
+    @FXML
+    private Button resetButton;
+
+    @FXML
+    private Button testButton;
+
+    @FXML
+    void addUser(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     void goBackToMain(ActionEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -46,6 +64,18 @@ public class smokeAlarmMenuController extends SmartHomeController {
     @FXML
     void toggleSmokeAlarm(MouseEvent event) {
 
+    }
+
+    @FXML
+    void resetSmokeAlarm(MouseEvent event) {
+
+        client.requestSmokeAlarmStatus(getCurrentDeviceName());
+    }
+
+    @FXML
+    void testSmokeAlarm(MouseEvent event) {
+
+        client.requestSmokeAlarmStatus(getCurrentDeviceName());
     }
 
     public void displaySmokeAlarmStatus(String _status, int _smokeAmount, String _smokeThresholdExceeded, int _batteryPercent){

@@ -39,6 +39,18 @@ public class lockMenuController extends SmartHomeController{
     private Button updateAutoLockButton;
 
     @FXML
+    private Button addUserButton;
+
+    @FXML
+    void addUser(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     void goBackToMain(ActionEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("homeScreenMenu.fxml"));
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

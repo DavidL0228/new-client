@@ -49,6 +49,18 @@ public class lightMenuController extends SmartHomeController {
     @FXML
     private Button updateTimeoutButton;
 
+    @FXML
+    private Button addUserButton;
+
+    @FXML
+    void addUser(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("addDeviceUserMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     //smoothly adjusts the brightness text to match the slider. Does not send data to server until release
     @FXML
     void adjustBrightness(MouseEvent event) {
