@@ -57,7 +57,7 @@
             <Insets />
          </GridPane.margin>
       </GridPane>
-      <Text fx:id="lightName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Light Schedule" textAlignment="CENTER" wrappingWidth="388.38304138183594" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Text fx:id="title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Light Schedule" textAlignment="CENTER" wrappingWidth="388.38304138183594" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="20.0" />
          </font>

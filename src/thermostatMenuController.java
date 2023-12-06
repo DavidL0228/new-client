@@ -114,9 +114,12 @@ public class thermostatMenuController extends SmartHomeController {
 
     // Open the add schedule menu
     @FXML
-    void gotoAddSchedule(MouseEvent event) {
-        // Add logic to navigate to the add schedule menu
-        // This method will be completed with the specific functionality for adding a schedule
+    void gotoAddSchedule(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("scheduleMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     // Set the thermostat to cooling mode

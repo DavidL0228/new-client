@@ -193,6 +193,6 @@
             </GridPane>
          </children>
       </GridPane>
-      <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" GridPane.rowIndex="7" />
+      <Button fx:id="addScheduleButton" mnemonicParsing="false" onMouseClicked="#gotoAddSchedule" text="Schedule" GridPane.rowIndex="7" />
    </children>
 </GridPane>

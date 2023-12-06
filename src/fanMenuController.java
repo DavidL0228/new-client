@@ -87,8 +87,12 @@ public class fanMenuController extends SmartHomeController {
 
     // Placeholder for future functionality
     @FXML
-    void gotoAddSchedule(MouseEvent event) {
-        // Add schedule functionality goes here
+    void gotoAddSchedule(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("scheduleMenu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     // Sets the fan speed to low
