@@ -120,6 +120,9 @@ public class SmartClient extends AbstractClient {
 				//Schedule schedule = ((MessageWithSchedule)message).getSchedule();
 				//controller.displayThermostatStatus( message.getFirstData() );
 			}
+			else if(function.equals(Message.NOTIFY_SMOKE_ALARM_USERS)) {
+
+			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
@@ -601,6 +604,14 @@ public class SmartClient extends AbstractClient {
 				deviceName,
 				Message.MAKE_THERMOSTAT_HEATING,
 				-1);
+		try 				  {	super.sendToServer(msg); }
+		catch (IOException e) {	e.printStackTrace();	 }
+	}
+
+	public void addUserToDevice(String deviceName) {
+		Message msg = new Message(username, password,
+				"", deviceName,
+				Message.ADD_USER_TO_DEVICE, -1);
 		try 				  {	super.sendToServer(msg); }
 		catch (IOException e) {	e.printStackTrace();	 }
 	}
