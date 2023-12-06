@@ -83,6 +83,7 @@ public class smokeAlarmMenuController extends SmartHomeController {
     void resetSmokeAlarm(MouseEvent event) {
         client.modifySmokeAmount(getCurrentDeviceName(), 0);
         client.requestSmokeAlarmStatus(getCurrentDeviceName());
+        setWarning(-1);
     }
 
     // Method to handle testing the smoke alarm
@@ -99,6 +100,12 @@ public class smokeAlarmMenuController extends SmartHomeController {
             smokeAmount.setText(String.valueOf(_smokeAmount));
             smokeThresholdExceeded.setText(_smokeThresholdExceeded);
             batteryPercent.setText(String.valueOf(_batteryPercent));
+
+            //checks if smoke amount is too much
+            if(_smokeAmount >= 90){
+                smokeThresholdExceeded.setText("YES");
+                setWarning(1);
+            }
         });
     }
 

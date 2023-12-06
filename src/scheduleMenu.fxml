@@ -85,14 +85,6 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="startValueText" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Value:" GridPane.columnIndex="7">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="5.0" right="5.0" />
-               </GridPane.margin>
-            </Text>
             <TextField fx:id="startHourField" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
@@ -114,11 +106,6 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="startValue" GridPane.columnIndex="8">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
          </children>
       </GridPane>
       <Text fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" GridPane.halignment="LEFT" GridPane.rowIndex="2">
@@ -161,14 +148,6 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="endValueText" fill="#cccccc" strokeType="OUTSIDE" strokeWidth="0.0" text="Value:" GridPane.columnIndex="7">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="5.0" right="5.0" />
-               </GridPane.margin>
-            </Text>
             <TextField fx:id="endHourField" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
@@ -190,11 +169,6 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="endValue" GridPane.columnIndex="8">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
          </children>
       </GridPane>
    </children>

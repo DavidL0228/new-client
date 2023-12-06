@@ -37,12 +37,6 @@ public class scheduleMenuController extends SmartHomeController{
     private TextField endSecField;
 
     @FXML
-    private TextField endValue;
-
-    @FXML
-    private Text endValueText;
-
-    @FXML
     private TextField startHourField;
 
     @FXML
@@ -51,11 +45,6 @@ public class scheduleMenuController extends SmartHomeController{
     @FXML
     private TextField startSecField;
 
-    @FXML
-    private TextField startValue;
-
-    @FXML
-    private Text startValueText;
 
     @FXML
     private Text title;
@@ -153,10 +142,10 @@ public class scheduleMenuController extends SmartHomeController{
                             client.addLightSchedule(getCurrentDeviceName(), 100, startTime, endTime);
                             break;
                         case Message.SMART_FAN:
-                            //client.sendFanSchedule(getCurrentDeviceName(), 100, startTime, endTime);
+                            client.sendFanSchedule(getCurrentDeviceName(), 100, startTime, endTime);
                             break;
                         case Message.SMART_THERMOSTAT:
-                            //client.adjustTemperatureWithSchedule(getCurrentDeviceName(), 0, startTime, endTime);
+                            client.adjustTemperatureWithSchedule(getCurrentDeviceName(), 0, startTime, endTime);
                             break;
                         default:
                             System.out.println("device type not found");

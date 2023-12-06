@@ -16,6 +16,9 @@ public class SmartHomeController {
 	//username variable used to display the correct name on home screen
 	private static String username;
 
+	private static int warning = -1;
+
+	//gets and sets
 	public static String getCurrentDeviceName() {
 		return currentDeviceName;
 	}
@@ -30,5 +33,13 @@ public class SmartHomeController {
 
 	public static void setUsername(String username) {
 		SmartHomeController.username = username;
+	}
+
+	public static int getWarning() {
+		return warning;
+	}
+
+	public static void setWarning(int warning) {
+		SmartHomeController.warning = warning;
 	}
 }

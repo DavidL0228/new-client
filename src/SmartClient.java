@@ -124,7 +124,8 @@ public class SmartClient extends AbstractClient {
 				} catch(Exception e) { System.out.printf("Not in Thermo Menu %n"); }
 			}
             else if(function.equals(Message.NOTIFY_SMOKE_ALARM_USERS)) {
-
+				System.out.println("Notifying smoke alarm user");
+				controller.setWarning(1);
             }
 			else if(function.equals(Message.GET_DEVICE_TYPE)) {
 				if (controller instanceof addDeviceUserMenuController) {
