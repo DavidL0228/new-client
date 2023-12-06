@@ -126,6 +126,10 @@ public class SmartClient extends AbstractClient {
             else if(function.equals(Message.NOTIFY_SMOKE_ALARM_USERS)) {
 
             }
+			else if(function.equals(Message.GET_DEVICE_TYPE)) {
+				((addDeviceUserMenuController)controller).setDeviceType(message.getDeviceType());
+				((addDeviceUserMenuController)controller).setSuccess(1);
+			}
 			else if ( function.equals(Message.FUNCTION_SUCCESSFUL) ) {
 				System.out.printf( "Success! %n" );
 				if(controller instanceof loginController) {
